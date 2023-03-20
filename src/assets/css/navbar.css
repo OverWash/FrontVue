@@ -1,0 +1,57 @@
+.profile-image {
+  background-image: url("../defaultImg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 15vmin;
+  height: 15vmin;
+  object-fit: cover;
+  border: 0.1vmin solid var(--bs-body-color);
+  box-shadow: 2px 2px 1px var(--bs-dark-text);
+  border-radius: 100%;
+  overflow-block: hidden;
+  margin: 5% 0 5% 0;
+}
+.toggle-btn {
+  position: absolute;
+  left: 2%;
+  top: 50%;
+}
+.img-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3vmin;
+  height: 3vmin;
+  color: var(--bs-dark-bg);
+  background-color: var(--bs-secondry-bg-subtle);
+  border-radius: 100%;
+  border: 1px solid var(--bs-dark-text);
+  user-select: none;
+  cursor: pointer;
+  transition: 0.7s;
+}
+
+.img-toggle::before {
+  content: attr(btn-text);
+}
+.img-toggle:hover {
+  cursor: pointer;
+  background-color: var(--bs-dark-text);
+  color: var(--bs-light-bg-subtle);
+}
+
+.show {
+  display: block;
+  height: 100vh;
+  width: 20vw;
+  transition: 0.7s;
+  left: 0;
+  overflow-x: hidden;
+}
+.hide {
+  display: block;
+  overflow-x: hidden;
+  width: 0px;
+  transition: 0.7s;
+  left: -100%;
+}

@@ -1,0 +1,19 @@
+#app {
+  font-size: 2vw;
+  min-width: 800px;
+  user-select: none;
+}
+
+body {
+  background: var(--bs-body-bg);
+  color: var(--bs-dark-text);
+}
+
+.main-contain {
+  display: flex;
+  height: 100vh;
+}
+.main-contain-item {
+  width: 100%;
+}
+
