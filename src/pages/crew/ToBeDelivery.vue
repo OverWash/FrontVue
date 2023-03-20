@@ -33,12 +33,13 @@
             <td>{{wc.confirm.reservation.member.memberContact}}</td>
             <td>{{wc.confirm.reservation.member.nickname}}</td>
             <td>
-              <form action="/crew/delivery/${wc.confirm.reservation.reservationId}" method="post" onsubmit="delivery()">
+              <!-- <form action="/crew/delivery/${wc.confirm.reservation.reservationId}" method="post" onsubmit="delivery()"> -->
+			  <form @submit.prevent="delivery(wc)">
                 <button class="btn btn-primary">배달하기</button>
-                <input type="hidden" name="wcId"   value="${wc.wcId }">
+                <!-- <input type="hidden" name="wcId"   value="${wc.wcId }">
                 <input type="hidden" name="crewId" value="${crewId }">
                 <input type="hidden" name="flag"   value="table">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
               </form>
             </td>
           </tr>
@@ -51,10 +52,32 @@
 
 </div>
 </template>
-
 <script>
-export default {
+import axios from 'axios'
 
+export default {
+	setup() {
+
+		const delivery = async (wc) => {
+			const reservationId = wc.confirm.reservation.reservationId;
+			const wcId = wc.wcId;
+			// crewId?
+			
+			alert('배달을 진행합니다.');
+			
+			try {
+				await axios.post(`/crew/delivery/${reservationId}` + wcId)
+			} catch(err) {
+				console.log(err);
+				// 에러메시지 처리
+			}
+		}
+
+
+		return {
+			delivery,
+		}
+	}
 }
 </script>
 

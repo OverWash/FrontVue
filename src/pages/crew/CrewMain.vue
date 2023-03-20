@@ -57,7 +57,7 @@
             <!-- 반복문 5번 돌리기-->
             <!-- <div v-for="(collect,index) in collectList.slice(0, 5)" :key="collect.reservationId"> -->  
               <div v-for="collect in collectList" :key="collect.reservationId">
-              <form @submit.prevent="collect()">
+              <form @submit.prevent="collect(key)">
                 <div class="reservationList">
                   <h4 class="middle font-weight-bold">
                     {{ collect.member.memberAddress }}
@@ -89,7 +89,7 @@
             <!-- 반복문 5번 돌리기-->
             <!-- <div v-for="(collect,index) in collectList.slice(0, 5)" :key="collect.reservationId"> -->  
               <div v-for="wc in wcList" :key="wc.wcId">
-              <form @submit.prevent="delivery()">
+              <form @submit.prevent="delivery(wc)">
                 <div class="reservationList">
                   <h4 class="middle font-weight-bold">
                     {{ wc.confirm.reservation.member.memberAddress }}
@@ -98,7 +98,7 @@
                         <span class="icon text-gray-600">
                           <i class="fas fa-arrow-right"></i>
                         </span>
-                        <span class="text font-weight-bold">수거하기</span>
+                        <span class="text font-weight-bold">배달하기</span>
                       </button>
                     </span>
                   </h4>
@@ -119,8 +119,45 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
 
+	setup() {
+		
+		const collect = async (reservationId) => { //member(로그인한 계정).crewId, security header? ,,, flag?
+			const flag = 'main';
+			alert('수거를 진행합니다.');
+
+			try {
+				await axios.post(`/collect/${reservationId}` + flag);
+			}catch(err) {
+				console.log(err);
+                //에러 메시지 처리
+			}
+		}
+
+		const delivery = async (wc) => { //member(로그인한 계정).crewId, security header? ,,, flag?
+			
+			const reservationId = wc.confirm.reservation.reservationId;
+			const wcId = wc.wcId;
+			const flag = 'main';
+			alert('배달을 진행합니다.');
+
+			try {
+				await axios.post(`/delivery/${reservationId}` + wcId + flag);
+			}catch(err) {
+				console.log(err);
+				// 에러 메시지 처리
+			}
+		}
+
+
+		return {
+			collect,
+			delivery,
+		}
+	}
 }
 </script>
 
