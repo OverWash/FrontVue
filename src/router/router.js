@@ -1,26 +1,46 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
-    path: "/",
-    name: "index",
-    component: () => import("@/pages/HomePage.vue"),
+    path: '/',
+    name: 'index',
+    component: () => import('@/pages/HomePage.vue'),
   },
   {
-    path: "/signin",
-    name: "signin",
-    component: () => import("@/pages/SignIn.vue"),
+    path: '/signin',
+    name: 'signin',
+    component: () => import('@/pages/SignIn.vue'),
   },
   // {
   //   path: "/signup",
   //   name: "signup",
-  //   component: () => import("@/pages/SignUp.vue"),
+  //   component: () => import("SignUp.vue"),
   // },
-];
+  {
+    path: '/admin',
+    name: 'AdminMain',
+    component: () => import('@/pages/admin/AdminMain.vue'),
+  },
+  {
+    path: '/admin/confirm',
+    name: 'AdminConfirm',
+    component: () => import('@/pages/admin/AdminConfirm.vue'),
+  },
+  {
+    path: '/admin/laundry',
+    name: 'AdminLaundry',
+    component: () => import('@/pages/admin/AdminLaundry.vue'),
+  },
+  {
+    path: '/admin/laundry/:id',
+    name: 'AdminLaundryDetail',
+    component: () => import('@/pages/admin/AdminLaundryDetail'),
+  },
+]
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
-});
+})
 
-export default router;
+export default router
