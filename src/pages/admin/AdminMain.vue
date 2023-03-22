@@ -1,12 +1,12 @@
 <template>
-  <div>asdsad</div>
+  <AdminMainComponent />
 </template>
 
 <script>
-// import AdminMainComponent from '@/components/admin/AdminMainComponent.vue'
+import AdminMainComponent from '@/components/admin/AdminMainComponent.vue'
 export default {
   components: {
-    // AdminMainComponent,
+    AdminMainComponent,
   }
 
 }

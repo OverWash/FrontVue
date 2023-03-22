@@ -1,10 +1,10 @@
 .body {
-  height: 76%;
+  height: 81%;
   border: 1px solid var(--bs-dark-text);
   display: flex;
-  width: 80%;
+  width: 85%;
   flex-direction: row;
-  margin: 1% auto ;
+  margin: 1% auto;
   align-items: center;
   justify-content: center;
   padding: 2%;

@@ -45,8 +45,8 @@
   display: block;
   height: 100vh;
   transition: 0.4s;
-  width: 18vw;
-  max-width: 18vw;
+  /* width: 18vw; */
+  /* max-width: 18vw; */
   /* min-width: 200px; */
   max-height: 100vh;
   transform: translate3d(0, 0, 0);

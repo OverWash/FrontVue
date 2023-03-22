@@ -1,5 +1,5 @@
 <template>
-  <AdminDetailTable :dummy="dummy" />
+  <AdminDetailTable :dummy="dummy" :name='confirm' />
 </template>
 
 <script>
@@ -8,6 +8,7 @@ import { ref } from 'vue';
 
 export default {
   setup() {
+    const confirm = 'confirm';
     const dummy = ref([
       {
         id: 1,
@@ -29,7 +30,9 @@ export default {
       },
     ]);
     return {
-      dummy
+      dummy,
+      confirm
+
     };
   },
   components: { AdminDetailTable }

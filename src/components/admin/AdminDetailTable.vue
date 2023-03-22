@@ -29,20 +29,19 @@ export default {
     dummy: {
       type: Array,
       require: false
+    },
+    name: {
+      type: String,
+      require: true,
     }
 
   },
-  methods: {
-    // detailPage: (id) => {
-    //   router.push({
-    //     path: `/admin/laundry/${id}`,
-    //   })
-    // }
-  },
-  setup() {
+
+  setup(props) {
     const detailPage = (id) => {
+      const path = props.name === 'confirm' ? `/admin/confirm/${id}` : `/admin/laundry/${id}`;
       router.push({
-        path: `/admin/laundry/${id}`,
+        path: path,
       })
     }
     return {

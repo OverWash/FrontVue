@@ -27,6 +27,11 @@ const routes = [
     component: () => import('@/pages/admin/AdminConfirm.vue'),
   },
   {
+    path: '/admin/confirm/:id',
+    name: 'AdminConfirmDetail',
+    component: () => import('@/pages/admin/AdminConfirmDetail.vue'),
+  },
+  {
     path: '/admin/laundry',
     name: 'AdminLaundry',
     component: () => import('@/pages/admin/AdminLaundry.vue'),

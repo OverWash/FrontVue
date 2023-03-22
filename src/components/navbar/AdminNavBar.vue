@@ -13,7 +13,6 @@
 <script>
 import router from '@/router/router';
 import { ref } from 'vue';
-// import { useRoute } from 'vue-router';
 
 export default {
   setup() {
@@ -37,16 +36,15 @@ export default {
     const checkBtn = ref(1);
 
     const onClick = (id) => {
-      console.log(checkBtn.value);
       checkBtn.value = id;
-      if (checkBtn.value === 1) {
+      if (id === 1) {
         router.push("/admin/")
       }
 
-      if (checkBtn.value === 2) {
+      if (id === 2) {
         router.push("/admin/confirm")
       }
-      if (checkBtn.value === 3) {
+      if (id === 3) {
         router.push("/admin/laundry")
       }
     }
