@@ -1,16 +1,14 @@
 <template>
-  <div class="max-width">
-    HomePages
-  </div>
+  <div class="max-width">HomePages</div>
+  <router-view />
 </template>
 
 <script>
 export default {
-  components: {
-  },
+  components: {},
 };
 </script>
 
 <style>
-@import url('@/assets/css/body.css');
+@import url("@/assets/css/body.css");
 </style>
