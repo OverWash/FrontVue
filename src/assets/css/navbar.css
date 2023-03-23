@@ -44,10 +44,8 @@
 .show {
   display: block;
   height: 100vh;
-  transition: 0.4s;
-  /* width: 18vw; */
-  /* max-width: 18vw; */
-  /* min-width: 200px; */
+  /* transition: 0.4s; */
+
   max-height: 100vh;
   transform: translate3d(0, 0, 0);
   overflow-x: hidden;
@@ -70,4 +68,9 @@
 
 .side-item-btn {
   cursor: pointer;
+}
+
+.side {
+  transition: 0s;
+  background-color: var(--bs-light-bg-subtle);
 }

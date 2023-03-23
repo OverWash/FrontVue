@@ -1,5 +1,5 @@
 .body {
-  height: 81%;
+  /* height: 81%; */
   border: 1px solid var(--bs-dark-text);
   display: flex;
   width: 85%;
@@ -8,6 +8,7 @@
   align-items: center;
   justify-content: center;
   padding: 2%;
+  height: 100%;
 }
 
 .max-width {

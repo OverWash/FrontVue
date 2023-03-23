@@ -56,11 +56,7 @@ export default {
 .item-select:hover {
   cursor: pointer;
   background-color: var(--bs-primary);
-  border: 2px solid gray;
+  /* border: 2px solid gray; */
 
-}
-
-.item-select {
-  margin-top: 10px;
 }
 </style>
