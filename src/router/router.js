@@ -43,9 +43,21 @@ const routes = [
   },
 ]
 
+    path      : "/crew/main",
+    name      : "crewMain",
+    component : () => import("@/pages/crew/CrewMain.vue")
+  },
+  {
+    path      : "/crew/tobedelivery",
+    name      : "toBeDelivery",
+    component : () => import("@/pages/crew/ToBeDelivery.vue")
+  }
+];
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
 })
 
 export default router
+

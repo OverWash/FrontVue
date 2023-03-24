@@ -1,7 +1,7 @@
 html,
 body {
   height: 100%;
-}
+  }
 
 body {
   margin: 0;
@@ -12,7 +12,7 @@ body {
 }
 
 #app {
-  font-size: 1.2vw;
+  font-size: 1vw;
   min-width: 800px;
   user-select: none;
 }
