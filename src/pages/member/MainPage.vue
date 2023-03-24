@@ -19,10 +19,10 @@
 <script>
 import { ref } from "vue";
 import axios from "axios";
-import ReservationRequest from "@/components/ReservationRequest.vue";
-import ReservationLast from "@/components/ReservationLast.vue";
-import ReservationList from "@/components/ReservationList.vue";
-import PaymentRequestList from "@/components/PaymentRequestList.vue";
+import ReservationRequest from "@/components/mainPage/ReservationRequest.vue";
+import ReservationLast from "@/components/mainPage/ReservationLast.vue";
+import ReservationList from "@/components/mainPage/ReservationList.vue";
+import PaymentRequestList from "@/components/mainPage/PaymentRequestList.vue";
 //import { useRouter } from 'vue-router';
 
 export default {
@@ -40,7 +40,8 @@ export default {
     const getReservationList = async () => {
       try {
         const res = await axios.get(
-          "/reservations/getList/1"
+          // 임시로 1번 멤버 불러오기
+          "http://127.0.0.1:8100/reservations/1"
         );
         reservationList.value = res.data;
       } catch (err) {
@@ -48,25 +49,25 @@ export default {
       }
     };
 
-    const getPrList = async () => {
-      try {
-        const res = await axios.get(
-          "/reservations/getPrList/1"
-        );
-        prList.value = res.data;
-      } catch (err) {
-        console.log(err);
-      }
-    };
+    // const getPrList = async () => {
+    //   try {
+    //     const res = await axios.get(
+    //       "/reservations/getPrList/1"
+    //     );
+    //     prList.value = res.data;
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
 
     getReservationList();
-    getPrList();
+    //getPrList();
 
     return {
       reservationList,
       prList,
       getReservationList,
-      getPrList
+      //getPrList
     };
   },
 };
@@ -78,6 +79,6 @@ export default {
 }
 
 .main-page {
-  padding: 100px;
+  padding: 20px;
 }
 </style>
