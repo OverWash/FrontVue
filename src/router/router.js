@@ -8,9 +8,10 @@ const routes = [
     path: '/',
     name: 'emptyLayout',
     component: () => import('@/layouts/EmptyLayout.vue'),
+    redirect: '/login',
     children: [
       {
-        path: '/',
+        path: '/login',
         name: 'Login',
         component: () => import('@/pages/LoginPage.vue'),
         meta: { roles: [] }
@@ -62,6 +63,14 @@ const routes = [
         }
       },
       {
+        path: '/member/info',
+        name: "MemberInfo",
+        component: () => import('@/pages/member/MemberInfoPage.vue'),
+        meta: {
+          roles: ['ROLE_MEMBER']  
+        }
+      },
+      {
         path: '/admin/main',
         name: 'AdminMain',
         component: () => import('@/pages/admin/AdminMain.vue'),
@@ -108,13 +117,20 @@ const routes = [
 
       {
         path: '/crew/main',
-        name: 'crewMain',
+        name: 'CrewMain',
         component: () => import('@/pages/crew/CrewMain.vue'),
         meta: {
           roles: ['ROLE_CREW']  
         }
       },
-
+      {
+        path: '/crew/info',
+        name: "CrewInfo",
+        component: () => import('@/pages/crew/CrewInfoPage.vue'),
+        meta: {
+          roles: ['ROLE_CREW']  
+        }
+      },
       {
         path: '/crew/tobedelivery',
         name: 'toBeDelivery',
