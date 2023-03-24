@@ -74,17 +74,17 @@ const routes = [
       {
         path: '/register',
         name: 'Register',
-        component: () => import('@/pages/RegisterPage.vue'),
+        component: () => import('@/pages/register/RegisterPage.vue'),
       },
       {
         path: '/register/member',
         name: 'MemberRegister',
-        component: () => import('@/pages/register/MemberRegister.vue'),
+        component: () => import('@/pages/register/RegisterMemberPage.vue'),
       },
       {
         path: '/register/crew',
         name: 'CrewRegister',
-        component: () => import('@/pages/register/CrewRegister.vue'),
+        component: () => import('@/pages/register/RegisterCrewPage.vue'),
       },
     ],
   },
