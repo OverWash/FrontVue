@@ -18,3 +18,10 @@ export const test = () => {
     method: 'get',
   })
 }
+
+export const logout = () => {
+  return client({
+    url: '/logout',
+    method: 'post'
+  })
+}
