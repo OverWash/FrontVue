@@ -2,7 +2,6 @@
   <div class="col-xl-6">
     <div id="lastReservation">
       <div class="card shadow mb-4">
-        <!-- Card Header - Dropdown -->
         <div
           class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
         >
@@ -19,13 +18,12 @@
             </div>
           </div>
         </div>
-        <!-- Card Body -->
         <div class="card-body">
           <div class="mt-4">
             <div v-for="reservation in reservationList.slice(0,1)"
             :key="reservation.reservationId" 
               id="lastReservation">
-              <span class="float-right">{{reservation.reservationStatus}}</span>
+              <span class="float-right"><b>{{reservation.reservationStatus}}</b></span>
               <h5 class="h1 mb-2 font-weight-bold">
                 No.{{ reservation.reservationId }}
               </h5>
