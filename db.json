@@ -1,0 +1,62 @@
+{
+  "reservation": [
+    {
+      "reservationId": "0",
+      "collectDate": "2023-03-21",
+      "reservationDate": "2023-03-21",
+      "request":"요청사항0",
+      "reservationStatus":"주문접수",
+      "memberId":"1"
+    },
+    {
+      "reservationId": "1",
+      "collectDate": "2023-03-21",
+      "reservationDate": "2023-03-21",
+      "request":"요청사항1",
+      "reservationStatus":"예약확정",
+      "memberId":"1"
+    },
+    {
+      "reservationId": "2",
+      "collectDate": "2023-03-21",
+      "reservationDate": "2023-03-21",
+      "request":"요청사항2",
+      "reservationStatus":"배달완료",
+      "memberId":"1"
+    },
+    {
+      "reservationId": "3",
+      "collectDate": "2023-03-21",
+      "reservationDate": "2023-03-21",
+      "request":"요청사항3",
+      "reservationStatus":"검수완료",
+      "memberId":"1"
+    },
+    {
+      "reservationId": "4",
+      "collectDate": "2023-03-21",
+      "reservationDate": "2023-03-21",
+      "request":"요청사항4",
+      "reservationStatus":"주문접수",
+      "memberId":"1"
+    },
+    {
+      "reservationId": "5",
+      "collectDate": "2023-03-21",
+      "reservationDate": "2023-03-21",
+      "request":"요청사항5",
+      "reservationStatus":"주문접수",
+      "memberId":"1"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
