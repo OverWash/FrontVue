@@ -102,6 +102,7 @@ import { login } from '@/api/index.js'
 import VueCookie from 'vue-cookie'
 import { ref } from 'vue'
 import { useStore } from 'vuex'
+import router from '@/router/router.js'
 export default {
   setup() {
     const user = ref({
@@ -115,16 +116,31 @@ export default {
       store.commit('setRole', role)
     }
 
+    const movePage = (role) => {
+      switch (role) {
+        case 'ROLE_ADMIN':
+          router.push({ name: 'AdminMain' })
+          break
+        case 'ROLE_MEMBER':
+          router.push({ name: 'MemberMain' })
+          break
+        case 'ROLE_CREW':
+          router.push({ name: 'CrewMain' })
+          break
+      }
+    }
+
     const loginBtn = () => {
       const response = login(user.value)
       response.then((res) => {
         const token = VueCookie.get('token')
-        console.log(token)
         client.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
         // 권한을 vuex state 에 저장
         const role = res.headers.role
         setRole(role)
+
+        movePage(role)
       })
     }
 
