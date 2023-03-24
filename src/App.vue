@@ -25,8 +25,6 @@ export default {
     MainNavBar
   },
   setup() {
-
-    // document.documentElement.setAttribute('color-theme', 'light')
     document.documentElement.setAttribute('data-bs-theme', 'light');
     const inputValue = ref("");
     return {

@@ -1,19 +1,38 @@
+html,
+body {
+  height: 100%;
+  }
+
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background: var(--bs-body-bg);
+  color: var(--bs-dark-text);
+}
+
 #app {
   font-size: 1vw;
   min-width: 800px;
   user-select: none;
 }
 
-body {
-  background: var(--bs-body-bg);
-  color: var(--bs-dark-text);
+.main-contain-item {
+  /* border: 1px solid black; */
+  width: 100%;
+  height: auto;
+}
+
+td,
+th {
+  border: 0;
+}
+
+tr {
+  border-bottom-width: var(--bs-border-width);
 }
 
 .main-contain {
   display: flex;
-  height: 100vh;
+  height: max-content;
 }
-.main-contain-item {
-  width: 100%;
-}
-
