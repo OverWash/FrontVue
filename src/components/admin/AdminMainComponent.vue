@@ -1,5 +1,6 @@
 <template>
   <div class="body-container">
+    <button class="btn btn-primary" @click="test2">버튼</button>
     <div class="max-width d-flex row " style="font-size:1rem">
       <div>
         <div class="d-flex justify-content-between">
@@ -69,6 +70,7 @@
 <script>
 import { ref } from 'vue';
 import AdminModal from './AdminModal.vue';
+import { test } from '@/api/index.js'
 export default {
   components: {
     AdminModal
@@ -98,12 +100,17 @@ export default {
     const showModal = (id) => {
       check.value = true;
       console.log(id);
-
     }
+    const test2 = () => {
+      const data = test();
+      console.log(data);
+    }
+
     return {
       dummy,
       showModal,
-      check
+      check,
+      test2
     }
   }
 
