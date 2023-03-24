@@ -57,20 +57,20 @@
 </template>
 
 <script>
-import router from "@/router/router";
+import router from '@/router/router'
 export default {
   methods: {
     onClick: (event) => {
-      const type = event.target.id;
-      if (type == "crewBtn") {
-        router.push({ name: "CrewRegister" });
+      const type = event.target.id
+      if (type == 'crewBtn') {
+        router.push({ name: 'CrewRegister' })
       } else {
-        router.push({ name: "MemberRegister" });
+        router.push({ name: 'MemberRegister' })
       }
     },
   },
   setup() {},
-};
+}
 </script>
 
 <style>
