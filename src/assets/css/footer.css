@@ -1,9 +1,4 @@
 .footer {
-  position: relative;
-  bottom: 0;
   height: 10%;
-  width: 100%;
-  left: 0;
-  z-index: -10;
-  border-top: 1px solid var(--bs-dark-text);
+  border: 1px solid var(--bs-dark-text);
 }

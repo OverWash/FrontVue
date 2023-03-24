@@ -1,37 +1,41 @@
 <template>
-  <router-view />
+  <div class="main-contain">
+    <MainNavBar />
+    <div class="main-contain-item">
+      <MainHeader />
+      <MainContainer />
+      <MainFooter />
+    </div>
+  </div>
 </template>
 
 <script>
-
-// import { ref } from "vue";
-// import MainHeader from "@/components/MainHeader.vue";
-// import MainFooter from "@/components/MainFooter.vue";
-// import MainContainer from "@/components/MainContainer.vue";
-// import MainNavBar from "@/components/MainNavBar.vue";
-
+import { ref } from "vue";
+import MainHeader from "@/components/MainHeader.vue";
+import MainFooter from "@/components/MainFooter.vue";
+import MainContainer from "@/components/MainContainer.vue";
+import MainNavBar from "@/components/MainNavBar.vue";
 
 export default {
 
-  // components: {
-  //   MainHeader,
-  //   MainFooter,
-  //   MainContainer,
-  //   MainNavBar,
+  components: {
+    MainHeader,
+    MainFooter,
+    MainContainer,
+    MainNavBar
+  },
+  setup() {
 
-  // },
-  // setup() {
-  //   document.documentElement.setAttribute('data-bs-theme', 'light');
-  //   const inputValue = ref("");
-  //   return {
-  //     inputValue,
-  //   };
-  // },
+    // document.documentElement.setAttribute('color-theme', 'light')
+    document.documentElement.setAttribute('data-bs-theme', 'light');
+    const inputValue = ref("");
+    return {
+      inputValue,
+    };
+  },
 };
 </script>
 
-<style >
-@import url(@/assets/resources/vendor/fontawesome-free/css/all.min.css);
-@import url(@/assets//resources/css/sb-admin-2.min.css/);
+<style>
 @import url(@/assets/css/app.css);
 </style>

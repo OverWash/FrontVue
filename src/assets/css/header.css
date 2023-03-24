@@ -51,27 +51,3 @@
   top: 0;
   width: 100%;
 }
-
-
-.my-profile{
-  font-size: calc(1.2px + 1.2vw);
-  margin-right: 20px;
-  border-radius: 100px;
-  padding: 0.2vmax ;
-  border: 1px solid var(--bs-dark-text);
-}
-
-.my-profile:hover{
-  cursor: pointer;
-  background-color: var(--bs-dark-text);
-  color: var(--bs-light-bg-subtle);
-  transition: all 0.7s;
-  position: relative;
-}
-
-.d-block{
-  position: absolute;
-  border: var(--bs-dark-text);
-  top: 10;
-  right: 10;
-}
