@@ -12,36 +12,18 @@
                   <strong>크루 회원가입</strong>
                 </h4>
               </div>
-              <form
-                id="form"
-                class="user"
-                action="/register/crew"
-                method="post"
-                accept-charset="UTF-8"
-                @submit.prevent="onSubmit"
-              >
+              <form id="form" class="user" action="/register/crew" method="post" accept-charset="UTF-8"
+                @submit.prevent="onSubmit">
                 <!-- user info (email, password) -->
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input
-                      type="email"
-                      class="form-control form-control-user"
-                      id="email"
-                      name="email"
-                      placeholder="이메일 주소"
-                      required="required"
-                      v-model="user.email"
-                    />
+                    <input type="email" class="form-control form-control-user" id="email" name="email"
+                      placeholder="이메일 주소" required="required" v-model="user.email" />
                   </div>
 
                   <div class="col-sm-6">
-                    <button
-                      type="button"
-                      class="btn btn-secondary btn-user btn-block"
-                      id="emailCheckBtn"
-                      name="emailCheckBtn"
-                      @click="onClick($event)"
-                    >
+                    <button type="button" class="btn btn-secondary btn-user btn-block" id="emailCheckBtn"
+                      name="emailCheckBtn" @click="onClick($event)">
                       중복체크
                     </button>
                   </div>
@@ -56,51 +38,26 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <input
-                    type="password"
-                    class="form-control form-control-user"
-                    id="password"
-                    name="password"
-                    placeholder="비밀번호"
-                    required="required"
-                    v-model="user.password"
-                  />
+                  <input type="password" class="form-control form-control-user" id="password" name="password"
+                    placeholder="비밀번호" required="required" v-model="user.password" />
                 </div>
 
                 <!-- crew info -->
                 <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control form-control-user"
-                    id="crewName"
-                    name="crewName"
-                    placeholder="이름"
-                    required="required"
-                  />
+                  <input type="text" class="form-control form-control-user" id="crewName" name="crewName" placeholder="이름"
+                    required="required" />
                 </div>
 
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input
-                      type="tel"
-                      class="form-control form-control-user"
-                      id="contact"
-                      name="crewContact"
-                      placeholder="연락처(숫자만 입력)"
-                      required="required"
-                      v-model="contact"
-                    />
+                    <input type="tel" class="form-control form-control-user" id="contact" name="crewContact"
+                      placeholder="연락처(숫자만 입력)" required="required" v-model="contact" />
                   </div>
 
                   <!-- 연락처 중복체크 -->
                   <div class="col-sm-6">
-                    <button
-                      type="button"
-                      class="btn btn-secondary btn-user btn-block"
-                      id="contactCheckBtn"
-                      name="contactCheckBtn"
-                      @click="onClick($event)"
-                    >
+                    <button type="button" class="btn btn-secondary btn-user btn-block" id="contactCheckBtn"
+                      name="contactCheckBtn" @click="onClick($event)">
                       중복체크
                     </button>
                   </div>
@@ -116,54 +73,30 @@
                 </div>
 
                 <div class="form-group">
-                  <input
-                    type="date"
-                    class="form-control form-control-user"
-                    id="crewBirth"
-                    name="crewBirth"
-                    placeholder="생년월일"
-                    required="required"
-                  />
+                  <input type="date" class="form-control form-control-user" id="crewBirth" name="crewBirth"
+                    placeholder="생년월일" required="required" />
                 </div>
 
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      id="carType"
-                      name="carType"
-                      placeholder="차종(ex. 모닝)"
-                      required="required"
-                    />
+                    <input type="text" class="form-control form-control-user" id="carType" name="carType"
+                      placeholder="차종(ex. 모닝)" required="required" />
                   </div>
 
                   <div class="col-sm-6">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      id="carNumber"
-                      name="carNumber"
-                      placeholder="차량 번호"
-                      required="required"
-                    />
+                    <input type="text" class="form-control form-control-user" id="carNumber" name="carNumber"
+                      placeholder="차량 번호" required="required" />
                   </div>
                 </div>
 
-                <button
-                  id="submitBtn"
-                  type="submit"
-                  class="btn btn-primary btn-user btn-block"
-                >
+                <button id="submitBtn" type="submit" class="btn btn-primary btn-user btn-block">
                   Register Account
                 </button>
               </form>
 
               <hr />
               <div class="text-center">
-                <router-link class="small" :to="{ name: 'Login' }"
-                  >Already have an account? Login!</router-link
-                >
+                <router-link class="small" :to="{ name: 'Login' }">Already have an account? Login!</router-link>
               </div>
             </div>
           </div>
@@ -287,5 +220,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

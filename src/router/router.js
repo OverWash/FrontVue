@@ -11,7 +11,12 @@ const routes = [
         name: 'index',
         component: () => import('@/pages/HomePage.vue'),
       },
-
+      // pages/member
+      {
+        path: '/member/main',
+        name: 'member_main',
+        component: () => import('@/pages/member/MainPage.vue'),
+      },
       {
         path: '/admin',
         name: 'AdminMain',
@@ -84,6 +89,66 @@ const routes = [
     ],
   },
 ]
+
+// const routes2 = [
+//   {
+//     path: '/',
+//     name: 'index',
+//     component: () => import('@/pages/HomePage.vue'),
+//   },
+//   {
+//     path: '/signin',
+//     name: 'signin',
+//     component: () => import('@/pages/SignIn.vue'),
+//   },
+
+// // pages/member
+// {
+//   path: "/member/main",
+//   name: "member_main",
+//   component:() => import("@/pages/member/MainPage.vue"),
+// },
+// {
+//   path: "/signup",
+//   name: "signup",
+//   component: () => import("SignUp.vue"),
+// },
+// {
+//   path: '/admin',
+//   name: 'AdminMain',
+//   component: () => import('@/pages/admin/AdminMain.vue'),
+// },
+// {
+//   path: '/admin/confirm',
+//   name: 'AdminConfirm',
+//   component: () => import('@/pages/admin/AdminConfirm.vue'),
+// },
+// {
+//   path: '/admin/confirm/:id',
+//   name: 'AdminConfirmDetail',
+//   component: () => import('@/pages/admin/AdminConfirmDetail.vue'),
+// },
+// {
+//   path: '/admin/laundry',
+//   name: 'AdminLaundry',
+//   component: () => import('@/pages/admin/AdminLaundry.vue'),
+// },
+// {
+//   path: '/admin/laundry/:id',
+//   name: 'AdminLaundryDetail',
+//   component: () => import('@/pages/admin/AdminLaundryDetail'),
+// },
+// {
+//   path      : "/crew/main",
+//   name      : "crewMain",
+//   component : () => import("@/pages/crew/CrewMain.vue")
+// },
+// {
+//   path      : "/crew/tobedelivery",
+//   name      : "toBeDelivery",
+//   component : () => import("@/pages/crew/ToBeDelivery.vue")
+// }
+// ];
 
 const router = createRouter({
   history: createWebHistory(),
