@@ -1,4 +1,42 @@
 {
+  "users": [
+    {
+      "id": 1,
+      "userId": 1,
+      "email": "admin",
+      "password:": "overwash",
+      "role": "ROLE_ADMIN",
+      "signDate": "2023-12-09",
+      "enabled": 1
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "email": "sojong1003@gmail.com",
+      "password:": "1234",
+      "role": "ROLE_CREW",
+      "signDate": "2023-12-09",
+      "enabled": 1
+    },
+    {
+      "userId": "",
+      "email": "member8@gmail.com",
+      "password": "1234",
+      "role": "ROLE_MEMBER",
+      "signDate": 1679443797446,
+      "enabled": 1,
+      "id": 3
+    }
+  ],
+  "member": [
+    {
+      "memberId": 1,
+      "userId": 1,
+      "memberAddress": "서울특별시 은평구 갈현동",
+      "memberContact": "01092141315",
+      "nickname": "소정"
+    }
+  ],
   "reservation": [
     {
       "reservationId": "0",
