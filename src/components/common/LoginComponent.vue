@@ -97,8 +97,11 @@
 </template>
 
 <script>
+import client from '@/api/client'
 import { login } from '@/api/index.js'
+import VueCookie from 'vue-cookie'
 import { ref } from 'vue'
+import { useStore } from 'vuex'
 export default {
   setup() {
     const user = ref({
@@ -106,25 +109,31 @@ export default {
       password: '',
     })
 
+    const store = useStore()
+
+    const setRole = (role) => {
+      console.log('응답에서 넘어온 role!!!:    ' + role)
+      store.commit('setRole', role)
+      console.log('state 저장된 role!!!  ' + store.state.role)
+    }
+
     const loginBtn = () => {
-      login(user.value)
-      const response = login(data)
-      response.then(() => {
+      const response = login(user.value)
+      response.then((res) => {
         const token = VueCookie.get('token')
         console.log(token)
         client.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
-        // if (res.headers.role === 'ROLE_ADMIN') {
-        //   router.push('/admin')
-        // }
-
-        // 권한을 vuex에 저장?
+        // 권한을 vuex state 에 저장
+        const role = res.headers.role
+        setRole(role)
       })
     }
 
     return {
       user,
       loginBtn,
+      setRole,
     }
   },
 }
