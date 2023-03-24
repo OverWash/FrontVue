@@ -77,6 +77,7 @@
                     name="nickname"
                     placeholder="닉네임"
                     required="required"
+                    v-model="member.nickname"
                   />
                 </div>
 
@@ -89,7 +90,7 @@
                       name="memberContact"
                       placeholder="연락처(숫자만 입력)"
                       required="required"
-                      v-model="contact"
+                      v-model="member.memberContact"
                     />
                   </div>
 
@@ -124,6 +125,7 @@
                     name="memberAddress"
                     placeholder="주소 (ex. 서울특별시 ○○구 ○○동)"
                     required="required"
+                    v-model="member.memberAddress"
                   />
                 </div>
 
@@ -156,6 +158,8 @@ import axios from 'axios'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import router from '@/router/router'
+import { checkContact, checkEmail } from '@/api/index.js'
+import swal from 'sweetalert2'
 
 export default {
   setup() {
@@ -166,58 +170,78 @@ export default {
     const contact = ref('')
     const data = ref({})
     const user = reactive({
-      userId: '',
       email: '',
       password: '',
       role: 'ROLE_MEMBER',
-      signDate: '',
-      enabled: '',
     })
-    // const member = ref({
-
-    // });
+    const member = reactive({
+      memberAddress: '',
+      memberContact: '',
+      nickname: '',
+    })
 
     const onClick = (event) => {
       const id = event.target.id
 
       switch (id) {
         case 'emailCheckBtn':
-          checkDuplicate('email', user.email)
+          checkDuplicate('email')
           break
         case 'contactCheckBtn':
-          checkDuplicate('contact', contact.value)
+          checkDuplicate('contact')
           break
       }
     }
 
-    const checkDuplicate = async (type, param) => {
+    const checkDuplicate = async (type) => {
       switch (type) {
         case 'email':
           {
-            emailChecked.value = true
-            const res = await axios.get(
-              `http://localhost:3000/users?email=${param}`
-            )
-            data.value = res.data[0]
-            if (data.value) {
-              emailPossible.value = false
-            } else {
-              emailPossible.value = true
+            // 아무것도 입력 안 했을 경우
+            if (user.email == '') {
+              sweetAlert('이메일을 입력해 주세요!')
+              return
             }
+
+            emailChecked.value = true
+
+            const response = checkEmail(user.email)
+            response.then((res) => {
+              if (res.data == 'possible') {
+                emailPossible.value = true
+              } else {
+                emailPossible.value = false
+              }
+            })
           }
           break
         case 'contact':
           {
-            contactChecked.value = true
-            const res = await axios.get(
-              `http://localhost:3000/member?memberContact=${param}`
-            )
-            data.value = res.data[0]
-            if (data.value) {
-              contactPossible.value = false
-            } else {
-              contactPossible.value = true
+            if (member.memberContact == '') {
+              sweetAlert('연락처를 입력해 주세요!')
+              return
             }
+
+            contactChecked.value = true
+
+            const response = checkContact('member', member.memberContact)
+            response.then((res) => {
+              if (res.data == 'possible') {
+                contactPossible.value = true
+              } else {
+                contactPossible.value = false
+              }
+            })
+
+            // const res = await axios.get(
+            //   `http://localhost:3000/member?memberContact=${param}`
+            // )
+            // data.value = res.data[0]
+            // if (data.value) {
+            //   contactPossible.value = false
+            // } else {
+            //   contactPossible.value = true
+            // }
           }
           break
       }
@@ -227,14 +251,11 @@ export default {
       if (!emailPossible.value) {
         notify('이메일 중복 검사를 완료해 주세요')
       }
-
       if (!contactPossible.value) {
         notify('연락처 중복 검사를 완료해 주세요')
       }
-
       if (emailPossible.value && contactPossible.value) {
         notify('모두 입력 완료')
-
         axios
           .post(`http://localhost:3000/users`, user)
           .then((res) => {
@@ -247,6 +268,15 @@ export default {
       }
     }
 
+    const sweetAlert = (text) => {
+      swal.fire({
+        title: '알림',
+        text: text,
+        icon: 'info',
+      })
+    }
+
+    // sweetalert로 변경하기 -> 사용 안 할 경우 후에 지우기
     const notify = (msg) => {
       toast.info(msg, {
         autoClose: 2000,
@@ -265,7 +295,8 @@ export default {
       onSubmit,
       notify,
       user,
-      // member,
+      member,
+      sweetAlert,
     }
   },
 }

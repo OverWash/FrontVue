@@ -25,3 +25,22 @@ export const logout = () => {
     method: 'post'
   })
 }
+
+export const checkEmail = (param) => {
+  return client({
+    url: '/check',
+    method: 'get',
+    params: {
+      email: param
+    }
+  })
+}
+
+export const checkContact = (type, contact) => {
+  
+  return client({
+    url: `/check/${type}/${contact}`,
+    method: 'get',
+  })
+}
+

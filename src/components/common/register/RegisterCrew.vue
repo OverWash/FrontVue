@@ -88,7 +88,7 @@
                       name="crewContact"
                       placeholder="연락처(숫자만 입력)"
                       required="required"
-                      v-model="contact"
+                      v-model="crew.crewContact"
                     />
                   </div>
 
@@ -178,21 +178,24 @@ import { reactive, ref } from 'vue'
 import axios from 'axios'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
+import router from '@/router/router'
+import { checkContact, checkEmail } from '@/api/index.js'
+import swal from 'sweetalert2'
+
 export default {
   setup() {
     const emailChecked = ref(false)
     const emailPossible = ref(false)
     const contactChecked = ref(false)
     const contactPossible = ref(false)
-    const contact = ref('')
     const data = ref({})
     const user = reactive({
-      userId: '',
       email: '',
       password: '',
-      role: 'ROLE_MEMBER',
-      signDate: Date.now(),
-      enabled: 1,
+      role: 'ROLE_CREW',
+    })
+    const crew = reactive({
+      crewContact: '',
     })
 
     const onClick = (event) => {
@@ -200,42 +203,51 @@ export default {
 
       switch (id) {
         case 'emailCheckBtn':
-          checkDuplicate('email', user.email)
+          checkDuplicate('email')
           break
         case 'contactCheckBtn':
-          checkDuplicate('contact', contact.value)
+          checkDuplicate('contact')
           break
       }
     }
 
-    const checkDuplicate = async (type, param) => {
+    const checkDuplicate = async (type) => {
       switch (type) {
         case 'email':
           {
-            emailChecked.value = true
-            const res = await axios.get(
-              `http://localhost:3000/users?email=${param}`
-            )
-            data.value = res.data[0]
-            if (data.value) {
-              emailPossible.value = false
-            } else {
-              emailPossible.value = true
+            if (user.email == '') {
+              sweetAlert('이메일을 입력해 주세요!')
+              return
             }
+
+            emailChecked.value = true
+
+            const response = checkEmail(user.email)
+            response.then((res) => {
+              if (res.data == 'possible') {
+                emailPossible.value = true
+              } else {
+                emailPossible.value = false
+              }
+            })
           }
           break
         case 'contact':
           {
-            contactChecked.value = true
-            const res = await axios.get(
-              `http://localhost:3000/member?memberContact=${param}`
-            )
-            data.value = res.data[0]
-            if (data.value) {
-              contactPossible.value = false
-            } else {
-              contactPossible.value = true
+            if (crew.crewContact == '') {
+              sweetAlert('연락처를 입력해 주세요!')
+              return
             }
+
+            contactChecked.value = true
+            const response = checkContact('crew', crew.crewContact)
+            response.then((res) => {
+              if (res.data == 'possible') {
+                contactPossible.value = true
+              } else {
+                contactPossible.value = false
+              }
+            })
           }
           break
       }
@@ -245,23 +257,29 @@ export default {
       if (!emailPossible.value) {
         notify('이메일 중복 검사를 완료해 주세요')
       }
-
       if (!contactPossible.value) {
         notify('연락처 중복 검사를 완료해 주세요')
       }
-
       if (emailPossible.value && contactPossible.value) {
         notify('모두 입력 완료')
-
         axios
           .post(`http://localhost:3000/users`, user)
           .then((res) => {
-            if (res.status == 200) notify('회원가입이 완료되었습니다!')
+            if (res.status == 201) notify('회원가입이 완료되었습니다!')
+            router.push('/login')
           })
           .catch((err) => {
             console.log(err)
           })
       }
+    }
+
+    const sweetAlert = (text) => {
+      swal.fire({
+        title: '알림',
+        text: text,
+        icon: 'info',
+      })
     }
 
     const notify = (msg) => {
@@ -275,13 +293,14 @@ export default {
       emailPossible,
       contactChecked,
       contactPossible,
-      contact,
       data,
       onClick,
       checkDuplicate,
       onSubmit,
       notify,
       user,
+      crew,
+      sweetAlert,
     }
   },
 }
