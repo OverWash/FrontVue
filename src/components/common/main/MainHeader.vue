@@ -19,7 +19,7 @@
 
 <script>
 import { ref } from 'vue'
-import MyProfileMenu from './MyProfileMenu.vue'
+import MyProfileMenu from '../MyProfileMenu.vue'
 
 export default {
   components: {

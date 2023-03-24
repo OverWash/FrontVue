@@ -56,7 +56,7 @@ const routes = [
       },
       {
         path: '/member/main',
-        name: 'memberMain',
+        name: 'MemberMain',
         component: () => import('@/pages/member/MainPage.vue'),
         meta: {
           roles: ['ROLE_MEMBER']  

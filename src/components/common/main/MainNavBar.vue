@@ -1,7 +1,7 @@
 <template>
   <div class="side">
     <div :class="btnText === '<' ? 'show' : 'hide'">
-      <div class='side-item'>
+      <div class="side-item">
         <div class="d-flex align-items-center flex-column">
           <div class="profile-image"></div>
           <div>
@@ -19,43 +19,43 @@
     </div>
 
     <div class="toggle-btn">
-      <div class="img-toggle" :btn-text=btnText @click="showToggle"></div>
+      <div class="img-toggle" :btn-text="btnText" @click="showToggle"></div>
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref } from 'vue'
 
-import { AdminNavBar, CrewNavBar, MemberNavBar } from "../navbar/index.js";
+import { AdminNavBar, CrewNavBar, MemberNavBar } from '../../navbar/index.js'
 
 export default {
   setup() {
-    const btnText = ref("<");
+    const btnText = ref('<')
     const info = ref({
-      role: "ADMIN",
-    });
+      role: 'ADMIN',
+    })
     const showToggle = () => {
-      if (btnText.value === "<") {
-        btnText.value = ">";
+      if (btnText.value === '<') {
+        btnText.value = '>'
       } else {
-        btnText.value = "<";
+        btnText.value = '<'
       }
-    };
+    }
     return {
       info,
       btnText,
       showToggle,
-    };
+    }
   },
   components: {
     AdminNavBar,
     CrewNavBar,
     MemberNavBar,
   },
-};
+}
 </script>
 
 <style>
-@import url("@/assets/css/navbar.css");
+@import url('@/assets/css/navbar.css');
 </style>
