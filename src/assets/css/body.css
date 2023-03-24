@@ -1,12 +1,13 @@
 .body {
-  height: 80%;
   border: 1px solid var(--bs-dark-text);
   display: flex;
-  width: 100%;
+  width: 85%;
   flex-direction: row;
-  margin: 0px;
+  margin: 1% auto;
   align-items: center;
   justify-content: center;
+  padding: 2%;
+  height: 100%;
 }
 
 .max-width {
