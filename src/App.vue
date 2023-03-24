@@ -16,13 +16,15 @@ import MainFooter from "@/components/MainFooter.vue";
 import MainContainer from "@/components/MainContainer.vue";
 import MainNavBar from "@/components/MainNavBar.vue";
 
+
 export default {
 
   components: {
     MainHeader,
     MainFooter,
     MainContainer,
-    MainNavBar
+    MainNavBar,
+  
   },
   setup() {
     document.documentElement.setAttribute('data-bs-theme', 'light');

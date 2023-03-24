@@ -1,5 +1,6 @@
 <template>
   <div class="max-width">
+    <router-link class="member-main-page" :to="{name:'member_main'}">To Member Main</router-link>
     <h1>HomePages</h1>
     <div class="d-flex column col-md-6">
       <div class="form-label h2 me-2 ">id:</div>
