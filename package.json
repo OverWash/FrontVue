@@ -19,7 +19,8 @@
     "vue-cookie": "^1.1.4",
     "vue-router": "^4.1.6",
     "vue3-toastify": "^0.1.6",
-    "vuex": "^4.1.0"
+    "vuex": "^4.1.0",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

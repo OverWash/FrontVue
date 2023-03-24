@@ -112,9 +112,7 @@ export default {
     const store = useStore()
 
     const setRole = (role) => {
-      console.log('응답에서 넘어온 role!!!:    ' + role)
       store.commit('setRole', role)
-      console.log('state 저장된 role!!!  ' + store.state.role)
     }
 
     const loginBtn = () => {
