@@ -28,11 +28,12 @@
                     <div class="form-group">
                       <input
                         type="text"
-                        name="username"
+                        name="email"
                         class="form-control form-control-user"
-                        id="username"
+                        id="email"
                         placeholder="Email"
                         required="required"
+                        v-model="user.email"
                       />
                     </div>
 
@@ -44,6 +45,7 @@
                         id="password"
                         placeholder="Password"
                         required="required"
+                        v-model="user.password"
                       />
                     </div>
 
@@ -68,6 +70,7 @@
                       type="submit"
                       class="btn btn-secondary btn-user btn-block"
                       style="font-size: 1.2rem; padding: 0.2rem"
+                      @click.prevent="loginBtn"
                     >
                       Login
                     </button>
@@ -94,7 +97,37 @@
 </template>
 
 <script>
-export default {}
+import { login } from '@/api/index.js'
+import { ref } from 'vue'
+export default {
+  setup() {
+    const user = ref({
+      email: '',
+      password: '',
+    })
+
+    const loginBtn = () => {
+      login(user.value)
+      const response = login(data)
+      response.then(() => {
+        const token = VueCookie.get('token')
+        console.log(token)
+        client.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
+        // if (res.headers.role === 'ROLE_ADMIN') {
+        //   router.push('/admin')
+        // }
+
+        // 권한을 vuex에 저장?
+      })
+    }
+
+    return {
+      user,
+      loginBtn,
+    }
+  },
+}
 </script>
 
 <style>
