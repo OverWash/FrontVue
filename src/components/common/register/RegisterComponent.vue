@@ -1,5 +1,5 @@
 <template>
-  <div class="container" style="margin-top: 20%">
+  <div class="container" style="margin-top: 12%">
     <div class="card o-hidden border-0 shadow-lg my-5">
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->

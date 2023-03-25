@@ -47,12 +47,8 @@
                   </div>
 
                   <div v-if="emailChecked" class="text-center small">
-                    <div v-if="emailPossible">
-                      생성 가능한 아이디입니다.
-                    </div>
-                    <div v-else>
-                      이미 존재하는 아이디입니다.
-                    </div>
+                    <div v-if="emailPossible">생성 가능한 아이디입니다.</div>
+                    <div v-else>이미 존재하는 아이디입니다.</div>
                   </div>
                 </div>
 
@@ -108,12 +104,8 @@
                   </div>
 
                   <div v-if="contactChecked" class="text-center small">
-                    <div v-if="contactPossible">
-                      등록 가능한 연락처입니다.
-                    </div>
-                    <div v-else>
-                      이미 존재하는 연락처입니다.
-                    </div>
+                    <div v-if="contactPossible">등록 가능한 연락처입니다.</div>
+                    <div v-else>이미 존재하는 연락처입니다.</div>
                   </div>
                 </div>
 
@@ -156,8 +148,7 @@
 import { reactive, ref } from 'vue'
 import router from '@/router/router'
 import { checkContact, checkEmail, registerMember } from '@/api/index.js'
-import swal from 'sweetalert2'
-
+import { infoAlert, successToast } from '@/sweetAlert'
 export default {
   setup() {
     const emailChecked = ref(false)
@@ -196,7 +187,7 @@ export default {
           {
             // 아무것도 입력 안 했을 경우
             if (user.email == '') {
-              sweetAlert('이메일을 입력해 주세요!')
+              infoAlert('이메일을 입력해 주세요!')
               return
             }
 
@@ -215,7 +206,7 @@ export default {
         case 'contact':
           {
             if (member.memberContact == '') {
-              sweetAlert('연락처를 입력해 주세요!')
+              infoAlert('연락처를 입력해 주세요!')
               return
             }
 
@@ -236,30 +227,22 @@ export default {
 
     const onSubmit = () => {
       if (!emailPossible.value) {
-        sweetAlert('이메일 중복 검사를 완료해 주세요')
+        infoAlert('이메일 중복 검사를 완료해 주세요')
       }
       if (!contactPossible.value) {
-        sweetAlert('연락처 중복 검사를 완료해 주세요')
+        infoAlert('연락처 중복 검사를 완료해 주세요')
       }
       if (emailPossible.value && contactPossible.value) {
         const wrapper = {
-          user: user, 
+          user: user,
           member: member,
         }
         const response = registerMember(wrapper)
         response.then((res) => {
-          if (res.status == 201) sweetAlert('회원가입이 완료되었습니다!')
-            router.push('/login')
+          if (res.status == 201) successToast('회원가입이 완료되었습니다!')
+          router.push('/login')
         })
       }
-    }
-
-    const sweetAlert = (text) => {
-      swal.fire({
-        title: '알림',
-        text: text,
-        icon: 'info',
-      })
     }
 
     return {
@@ -274,7 +257,6 @@ export default {
       onSubmit,
       user,
       member,
-      sweetAlert,
     }
   },
 }
