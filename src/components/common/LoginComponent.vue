@@ -119,8 +119,9 @@ export default {
         client.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
         // 권한을 vuex state 에 저장
-        store.commit('setRole', res.status.role)
-        store.commit('setUserId', res.status.userid)
+        store.commit('setRole', res.headers.role)
+        store.commit('setUserId', res.headers.userid)
+        movePage(res.headers.role)
       })
     }
 

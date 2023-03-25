@@ -37,10 +37,25 @@ export const checkEmail = (param) => {
 }
 
 export const checkContact = (type, contact) => {
-  
   return client({
     url: `/check/${type}/${contact}`,
     method: 'get',
   })
 }
 
+export const registerMember = (data) => {
+  console.log(data)
+  return client({
+    url: '/register/member',
+    method: 'post',
+    data: data,
+  })
+}
+
+export const registerCrew = (data) => {
+  return client({
+    url: '/register/crew',
+    method: 'post',
+    data: data,
+  })
+}
