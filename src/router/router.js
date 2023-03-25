@@ -56,7 +56,7 @@ const routes = [
       },
       {
         path: '/member/main',
-        name: 'memberMain',
+        name: 'MemberMain',
         component: () => import('@/pages/member/MainPage.vue'),
         meta: {
           roles: ['ROLE_MEMBER']  
@@ -69,11 +69,6 @@ const routes = [
         meta: {
           roles: ['ROLE_MEMBER']  
         }
-      },
-      {
-        path: '/member/reservationList',
-        name: 'MemberReservationList',
-        component: () => import('@/pages/member/ReservationList.vue'),
       },
       {
         path: '/admin/main',

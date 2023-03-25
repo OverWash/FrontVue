@@ -10,7 +10,7 @@
           <img
             class="img-fluid px-3 px-sm-4"
             src="@/assets/logo.png"
-            style="max-width: 61%"
+            style="max-width: 60%"
           />
           <h4 class="m-0 font-weight-bold text-dark">+예약하기</h4>
         </div>
@@ -19,13 +19,7 @@
     <!-- Reservation request Modal-->
     <div>
         <div class="card shadow mb-4" v-if="Rswitch === 0">
-          <form
-            id="requestForm"
-            class="user"
-            action="/reservation/request"
-            method="POST"
-            onsubmit="requestSubmitBtn()"
-          >
+          <form @submit.prevent="submitForm">
             <div class="col-sm-12 mb-4" style="margin-top: 1rem">
               <!-- 수거 날짜 선택 -->
               <div class="card shadow mb-4">
@@ -40,9 +34,9 @@
                     type="date"
                     id="collectDate"
                     name="collectDate"
-                    value="2023-01-01"
                     min="2018-01-01"
                     max="2023-12-31"
+                    v-model="formData.collectDate"
                   />
                   <hr />
                   <h6><b>요청사항을 입력해 주세요</b></h6>
@@ -52,13 +46,14 @@
                     name="request"
                     class="form-control bg-light border-0 large"
                     placeholder="요청사항을 입력하세요"
+                    v-model="formData.request"
                   />
                 </div>
               </div>
               <div id="buttonRow">
                 <a
                   href="#"
-                  onclick="return chk_form()"
+                  @click="submitForm"
                   class="btn btn-primary btn-icon-split btn-sm"
                 >
                   <span class="icon text-white-60">
@@ -92,10 +87,16 @@
 
 <script>
 import 'animate.css'
+import axios from 'axios'
 export default {
   data() {
     return {
       Rswitch: 1,
+
+      formData: {
+        collectDate: '',
+        request: '',
+      },
     }
   },
   methods: {
@@ -106,6 +107,17 @@ export default {
       } else {
         this.Rswitch = 1
       }
+    },
+
+    submitForm() {
+      axios.post('http://127.0.0.1:8100/reservations/1', this.formData)
+        .then(response => {
+          console.log(response.data);
+          alert("예약 성공!");
+        })
+        .catch(error => {
+          console.log(error.response.data);
+        });
     },
   },
 }

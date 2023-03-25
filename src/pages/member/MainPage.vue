@@ -1,6 +1,6 @@
 <template>
   <!-- Content Row -->
-  <div class="main-page">
+  <div class="MainPage">
     <div class="row">
       <!-- 세탁신청 버튼 -->
       <ReservationRequest />
@@ -10,19 +10,22 @@
 
       <ReservationList :reservationList="reservationList" />
 
-      <PaymentRequestList :prList="prList"/>
+      <PaymentRequestList :prList="prList" />
+
+      <ReservationTable :reservationList="reservationList" />
     </div>
   </div>
   <!-- End Content Row -->
 </template>
 
 <script>
-import { ref } from "vue";
-import axios from "axios";
-import ReservationRequest from "@/components/mainPage/ReservationRequest.vue";
-import ReservationLast from "@/components/mainPage/ReservationLast.vue";
-import ReservationList from "@/components/mainPage/ReservationList.vue";
-import PaymentRequestList from "@/components/mainPage/PaymentRequestList.vue";
+import { ref } from 'vue'
+import axios from 'axios'
+import ReservationRequest from '@/components/mainPage/ReservationRequest.vue'
+import ReservationLast from '@/components/mainPage/ReservationLast.vue'
+import ReservationList from '@/components/mainPage/ReservationList.vue'
+import PaymentRequestList from '@/components/mainPage/PaymentRequestList.vue'
+import ReservationTable from '@/components/mainPage/ReservationTable.vue'
 //import { useRouter } from 'vue-router';
 
 export default {
@@ -31,46 +34,49 @@ export default {
     ReservationLast,
     ReservationList,
     PaymentRequestList,
+    ReservationTable,
   },
 
   setup() {
-    const reservationList = ref([]);
-    const prList = ref([]);
+    const reservationList = ref([])
+    const prList = ref([])
 
     const getReservationList = async () => {
       try {
         const res = await axios.get(
           // 임시로 1번 멤버 불러오기
-          "http://127.0.0.1:8100/reservations/1"
-        );
-        reservationList.value = res.data;
+          'http://127.0.0.1:8100/reservations/1'
+        )
+        reservationList.value = res.data
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
-    };
+    }
 
-    // const getPrList = async () => {
-    //   try {
-    //     const res = await axios.get(
-    //       "/reservations/getPrList/1"
-    //     );
-    //     prList.value = res.data;
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
+    const getPrList = async () => {
+      try {
+        const res = await axios.get(
+          // 임시로 1번 멤버 불러오기
+          'http://127.0.0.1:8100/payments/1'
+        )
+        prList.value = res.data
+        console.log("test");
+      } catch (err) {
+        console.log(err)
+      }
+    }
 
-    getReservationList();
-    //getPrList();
+    getReservationList()
+    getPrList();
 
     return {
       reservationList,
       prList,
       getReservationList,
-      //getPrList
-    };
+      getPrList
+    }
   },
-};
+}
 </script>
 
 <style>
