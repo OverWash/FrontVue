@@ -59,3 +59,17 @@ export const registerCrew = (data) => {
     data: data,
   })
 }
+
+export const getReservationList = (id) => {
+  return client({
+    url: `/reservations/${id}`,
+    method: 'get'
+  })
+}
+
+export const getPriceList = () => {
+  return client({
+    url: 'info/price',
+    method: 'get'
+  })
+}
