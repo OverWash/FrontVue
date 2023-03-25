@@ -1,5 +1,3 @@
-//src/store/index.js
-
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
