@@ -63,9 +63,6 @@
                       </div>
                     </div>
 
-                    <!-- CSRF 토큰으로 domain 직접 입력 판별
-										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />  -->
-
                     <button
                       type="submit"
                       class="btn btn-secondary btn-user btn-block"
