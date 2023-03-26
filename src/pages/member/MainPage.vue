@@ -28,6 +28,7 @@ import PaymentRequestList from '@/components/mainPage/PaymentRequestList.vue'
 import ReservationTable from '@/components/mainPage/ReservationTable.vue'
 //import { useRouter } from 'vue-router';
 
+
 export default {
   components: {
     ReservationRequest,
