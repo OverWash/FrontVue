@@ -60,10 +60,14 @@ export const registerCrew = (data) => {
   })
 }
 
-export const getReservationList = (id) => {
+export const getReservationList = (id, p, a) => {
   return client({
     url: `/reservations/${id}`,
-    method: 'get'
+    method: 'get',
+    params: {
+      page: p,
+      amount: a
+    }
   })
 }
 

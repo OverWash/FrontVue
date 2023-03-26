@@ -25,3 +25,12 @@ export const showRequest = (text) => {
         text: text
     })
 }
+
+export const failToast = (text) => {
+    Swal.fire({
+        icon: 'error',
+        title: text,
+        showConfirmButton: false,
+        timer: 1500,
+    })
+}

@@ -27,28 +27,59 @@
         </tr>
       </tbody>
     </table>
+    <div>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item" v-if="currentPage != 1">
+            <a class="page-link" @click="getList(currentPage - 1)">Previous</a>
+          </li>
+          <li
+            class="page-item"
+            v-for="page in pagination.endPage"
+            :key="page"
+            :class="currentPage == page ? 'active' : ''"
+          >
+            <a class="page-link" @click="getList(page)">{{ page }}</a>
+          </li>
+          <li class="page-item" v-if="currentPage < pagination.endPage">
+            <a class="page-link" @click="getList(currentPage + 1)">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </template>
 
 <script>
 // import router from '@/router/router'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { getReservationList } from '@/api/index.js'
 import { useStore } from 'vuex'
-import { showRequest } from '@/sweetAlert'
+import { showRequest, failToast } from '@/sweetAlert'
 export default {
   setup() {
-    const list = ref({})
-
     const store = useStore()
-    onMounted(() => {
-      const id = store.state.userid
-      const response = getReservationList(id)
-      response.then((res) => {
-        console.log(res.data)
-        list.value = res.data
-      })
-    })
+
+    const list = ref({})
+    const pagination = ref({})
+    const currentPage = ref(1)
+    const id = store.state.userid
+
+    const getList = async (page) => {
+      currentPage.value = page
+
+      try {
+        const response = await getReservationList(id, page, 10)
+        response.then((res) => {
+          console.log(res.data)
+          list.value = res.data.reservations
+          pagination.value = res.data.reservationPaging
+        })
+      } catch (err) {
+        failToast('데이터 로딩에 실패했습니다.')
+      }
+    }
+    getList(1)
 
     const showModal = (data) => {
       showRequest(data)
@@ -67,6 +98,10 @@ export default {
       // detailPage,
       list,
       showModal,
+      currentPage,
+      pagination,
+      getList,
+      id,
     }
   },
 }
