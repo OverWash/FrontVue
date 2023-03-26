@@ -3,9 +3,9 @@
     <div class="ms-4 row1">OverWash</div>
 
     <div class="contain-item">
-      <span class="my-profile"
+      <span class="my-profile" @mouseover="mouseOn"
         >내 정보
-        <MyProfileMenu />
+        <MyProfileMenu v-if="menu" />
       </span>
       <span
         class="change-mode"
@@ -30,6 +30,8 @@ export default {
       theme: 'light',
       content: '다크모드',
     })
+    const menu = ref(false)
+
     const darkModeBtn = () => {
       if (theme.value.theme === 'light') {
         // document.documentElement.setAttribute('color-theme', 'dark')
@@ -44,9 +46,15 @@ export default {
       }
     }
 
+    const mouseOn = () => {
+      menu.value = true
+    }
+
     return {
       theme,
       darkModeBtn,
+      mouseOn,
+      menu,
     }
   },
 }

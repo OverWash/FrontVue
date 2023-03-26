@@ -95,6 +95,14 @@ const routes = [
         }
       },
       {
+        path: '/member/payment-requests/:id',
+        name: 'PaymentRequestsDetail',
+        component: () => import('@/components/member/PaymentRequestDetail.vue'),
+        meta: {
+          roles: ['ROLE_MEMBER']  
+        }
+      },
+      {
         path: '/member/receipts',
         name: 'Receipts',
         component: () => import('@/components/member/ReceiptTable.vue'),

@@ -59,25 +59,25 @@ import { showRequest, failToast } from '@/sweetAlert'
 export default {
   setup() {
     const store = useStore()
+    const id = store.state.userid
 
     const list = ref({})
     const pagination = ref({})
     const currentPage = ref(1)
-    const id = store.state.userid
 
-    const getList = async (page) => {
+    const getList = (page) => {
       currentPage.value = page
 
-      try {
-        const response = await getReservationList(id, page, 10)
-        response.then((res) => {
-          console.log(res.data)
+      const response = getReservationList(id, page, 10)
+      response
+        .then((res) => {
+          // console.log(res.data)
           list.value = res.data.reservations
           pagination.value = res.data.reservationPaging
         })
-      } catch (err) {
-        failToast('데이터 로딩에 실패했습니다.')
-      }
+        .catch(() => {
+          failToast('데이터 로딩에 실패하였습니다.')
+        })
     }
     getList(1)
 
@@ -85,17 +85,7 @@ export default {
       showRequest(data)
     }
 
-    // const detailPage = (id) => {
-    //   const path =
-    //     props.name === 'confirm'
-    //       ? `/admin/confirm/${id}`
-    //       : `/admin/laundry/${id}`
-    //   router.push({
-    //     path: path,
-    //   })
-    // }
     return {
-      // detailPage,
       list,
       showModal,
       currentPage,
@@ -108,9 +98,4 @@ export default {
 </script>
 
 <style>
-.item-select:hover {
-  cursor: pointer;
-  background-color: var(--bs-primary);
-  /* border: 2px solid gray; */
-}
 </style>

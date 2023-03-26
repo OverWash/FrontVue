@@ -44,7 +44,6 @@ export const checkContact = (type, contact) => {
 }
 
 export const registerMember = (data) => {
-  console.log(data)
   return client({
     url: '/register/member',
     method: 'post',
@@ -75,5 +74,40 @@ export const getPriceList = () => {
   return client({
     url: 'info/price',
     method: 'get'
+  })
+}
+
+export const getPrList = (id, p, a) => {
+  return client({
+    url: `/payment/request-list/${id}`,
+    method: 'get',
+    params: {
+      page: p,
+      amount: a
+    }
+  })
+}
+
+export const getPrDetail = (id) => {
+  return client({
+    url: `/payment/request/${id}`,
+    method: 'get',
+  })
+}
+
+export const getCheckList = (id) => {
+  return client({
+    url: `/check/${id}`,
+    method: 'get',
+  })
+}
+
+export const createReceipt = (id, data) => {
+  return client({
+    url: `/payment/process/${id}`,
+    method: 'post',
+    data: {
+      "paymentMethod": data
+    },
   })
 }
