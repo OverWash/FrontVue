@@ -32,7 +32,7 @@
                 No.{{ reservation.reservationId }}
               </h5>
               <h6><b>예약날짜</b> :{{ reservation.reservationDate }}</h6>
-              <h6><b>예약내용</b> :{{ reservation.request }}</h6>
+              <h6><b>요청사항</b> :{{ reservation.request || ' 등록된 요청사항이 없습니다' }}</h6>
             </div>
           </div>
         </div>
