@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>금액 상세내역</h3>
+    <h4>세탁물 검수내역</h4>
     <hr />
     <table class="table">
       <thead>
@@ -16,7 +16,9 @@
         </tr>
       </tbody>
     </table>
-
+    <div class="text-right">
+      <h6>총 금액: {{ totalPrice }} 원</h6>
+    </div>
     <div>
       <nav aria-label="Page navigation example">
         <ul class="pagination">
@@ -37,6 +39,7 @@
         </ul>
       </nav>
     </div>
+    <!-- <hr style="border: 1px solid black" /> -->
   </div>
 </template>
 
@@ -46,7 +49,12 @@ import { getCheckList } from '@/api'
 import { failToast } from '@/sweetAlert'
 export default {
   props: {
-    id: {},
+    id: {
+      type: Number,
+    },
+    totalPrice: {
+      type: Number,
+    },
   },
   setup(props) {
     const checklist = ref({})
