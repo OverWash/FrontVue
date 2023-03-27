@@ -149,6 +149,8 @@ export const updateReservationRequest = (id, data) =>{
   return client({
     url: `reservations/${id}`,
     method: 'patch',
-    data: data,
+    data: {
+      "request" : data,
+    },
   })
 }

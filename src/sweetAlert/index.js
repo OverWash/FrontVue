@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import { createReceipt, deleteReservation } from "@/api";
+import { createReceipt, deleteReservation, updateReservationRequest } from "@/api";
 
 
 export const infoAlert = (text) => {
@@ -100,15 +100,24 @@ export const updateRequestModal = (reservationId) => {
         inputPlaceholder: '수정 내용 입력...',
         showCancelButton: true,
         
-        didClose: (modal) => {
-            const text = modal.value;
-            if(text){
-                console.log('reservationId:', reservationId);
-                console.log('request:', text);
-            }
-            
+        inputValidator: (value) => {
+            updateReservationRequest(reservationId, value)
+                .then((res) => {
+                    console.log(res)
+                    Swal.fire(
+                        '수정 완료',
+                        '예약건이 수정되었습니다.',
+                        'success'
+                    ).then(() => {
+                        location.reload();
+                    });
+                })
+                .catch((err) => {
+                    console.log(err)
+                    failToast('무언가 잘못되었네요.')
+                })
 
-          }
+        }
     })
 
 }
