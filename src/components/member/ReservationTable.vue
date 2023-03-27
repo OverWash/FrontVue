@@ -46,6 +46,8 @@
         </tr>
       </tbody>
     </table>
+    <div v-show="list.length == 0">영수증 내역이 없네요.</div>
+
     <div>
       <nav aria-label="Page navigation example">
         <ul class="pagination">
@@ -71,7 +73,7 @@
 
 <script>
 // import router from '@/router/router'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { getReservationList } from '@/api/index.js'
 import { showRequest, failToast, deleteModal, updateRequestModal } from '@/sweetAlert'
 import store from '@/store/store'
@@ -83,6 +85,10 @@ export default {
     const list = ref({})
     const pagination = ref({})
     const currentPage = ref(1)
+
+    onMounted(() => {
+      getList(1)
+    })
 
     const getList = (page) => {
       currentPage.value = page
@@ -98,7 +104,6 @@ export default {
           failToast('데이터 로딩에 실패하였습니다.')
         })
     }
-    getList(1)
 
     const showModal = (data) => {
       showRequest(data)

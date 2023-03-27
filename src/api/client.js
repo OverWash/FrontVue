@@ -7,6 +7,7 @@ client.defaults.baseURL = '/'
 
 const token = store.state.token
 client.defaults.headers.common['Authorization'] = `Bearer ${token}`
+// console.log(token)
 
 client.interceptors.response.use(
   (response) => {
