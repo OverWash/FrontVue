@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import store from '@/store/index.js'
+import store from '@/store/store.js'
 
 const routes = [
   
@@ -49,19 +49,68 @@ const routes = [
     name: 'defaultLayout',
     component: () => import('@/layouts/DefaultLayout.vue'),
     children: [
+      // {
+      //   path: '/home',
+      //   name: 'index',
+      //   component: () => import('@/pages/HomePage.vue'),
+      // },
       {
-        path: '/home',
-        name: 'index',
-        component: () => import('@/pages/HomePage.vue'),
+        path: '/info/price',
+        name: "PriceInfo",
+        component: () => import('@/components/info/PriceInfo.vue'),
+        meta: {
+          roles: []  
+        }
+      },
+      {
+        path: '/info/guide',
+        name: "GuideInfo",
+        component: () => import('@/components/info/GuideInfo.vue'),
+        meta: {
+          roles: []  
+        }
       },
       {
         path: '/member/main',
-        name: 'memberMain',
+        name: 'MemberMain',
         component: () => import('@/pages/member/MainPage.vue'),
         meta: {
           roles: ['ROLE_MEMBER']  
         }
       },
+      {
+        path: '/member/reservations',
+        name: 'Reservations',
+        component: () => import('@/components/member/ReservationTable.vue'),
+        meta: {
+          roles: ['ROLE_MEMBER']  
+        }
+      },
+      {
+        path: '/member/payment-requests',
+        name: 'PaymentRequests',
+        component: () => import('@/components/member/PaymentRequestTable.vue'),
+        meta: {
+          roles: ['ROLE_MEMBER']  
+        }
+      },
+      {
+        path: '/member/payment-requests/:id',
+        name: 'PaymentRequestsDetail',
+        component: () => import('@/components/member/PaymentRequestDetail.vue'),
+        meta: {
+          roles: ['ROLE_MEMBER']  
+        }
+      },
+      {
+        path: '/member/receipts',
+        name: 'Receipts',
+        component: () => import('@/components/member/ReceiptTable.vue'),
+        meta: {
+          roles: ['ROLE_MEMBER']  
+        }
+      },
+
       {
         path: '/member/info',
         name: "MemberInfo",
@@ -70,6 +119,7 @@ const routes = [
           roles: ['ROLE_MEMBER']  
         }
       },
+      
       {
         path: '/admin/main',
         name: 'AdminMain',

@@ -21,10 +21,9 @@
 import swal from 'sweetalert2'
 import { logout } from '@/api/index.js'
 import router from '@/router/router'
-import { useStore } from 'vuex'
+import store from '@/store/store'
 export default {
   setup() {
-    const store = useStore()
     const modifyBtn = () => {
       console.log(store.state.role)
       switch (store.state.role) {
@@ -35,10 +34,6 @@ export default {
           router.push({ name: 'MemberInfo' })
           break
       }
-    }
-
-    const setRole = () => {
-      store.commit('setRole', '')
     }
 
     const logoutBtn = () => {
@@ -56,11 +51,10 @@ export default {
         })
         .then((res) => {
           if (res.isConfirmed) {
-            logout().then((res) => {
-              console.log('로그아웃 요청 결과 : ' + res.status)
-              console.log('로그아웃 성공')
+            logout().then(() => {
               // state 초기화
-              setRole()
+              store.commit('setRole', '')
+              store.commit('setUserId', '')
               router.push({ name: 'Login' })
             })
           }
@@ -70,7 +64,6 @@ export default {
     return {
       modifyBtn,
       logoutBtn,
-      setRole,
       store,
     }
   },
