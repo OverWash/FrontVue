@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import { createReceipt } from "@/api";
+// import AdminConfirmDetail from '@/pages/admin/AdminConfirmDetail.vue'
 
 
 export const infoAlert = (text) => {
@@ -68,3 +69,27 @@ export const paymentModal = (id) => {
     })
 }
 
+export const checkConfirm = (title,content)=>{
+    return Swal.fire({
+          icon: 'question',
+          text : content,
+          showCancelButton: true,
+          title: title,
+      }
+    )
+}
+
+export const adminCheckModal=()=>{
+    return Swal.fire(
+      {
+        HTML:'<div>' +
+          '<AdminConfirmDetail/>'+
+          '</div>'
+        ,
+        icon:undefined,
+        cancelButtonAriaLabel:true,
+        cancelButtonText:"취소",
+        confirmButtonText:"검수완료"
+      }
+    )
+}

@@ -36,6 +36,7 @@ export const getReservationConfirmeds=(page)=>{
 }
 
 export const getPaymentRequests=(page)=>{
+  console.log(page.value)
   return client({
     url:'/admin/rc/list',
     method:'post',
@@ -153,4 +154,22 @@ export const getReceiptDetail = (id) => {
     url: `/payment/receipt/${id}`,
     method: 'get',
   })
+}
+
+export const checkWashingComplete=(confirmId)=>{
+  return client({
+    url: `/admin/wc/${confirmId}/complete`,
+    method:'post'
+
+  })
+}
+
+export const checkConfirmDetail=(confirmId)=>{
+  return client({
+    url:`/admin/rc/${confirmId}/detail`,
+    method:'get',
+
+  })
+
+
 }

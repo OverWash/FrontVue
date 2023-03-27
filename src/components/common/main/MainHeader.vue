@@ -3,9 +3,10 @@
     <div class="ms-4 row1">OverWash</div>
 
     <div class="contain-item">
-      <span class="my-profile" @mouseover="mouseOn"
+      <span class="my-profile" @mouseover="mouseOn(true)"
+            @mouseleave='mouseOn(false)'
         >내 정보
-        <MyProfileMenu v-if="menu" />
+        <MyProfileMenu v-show="menu" :class='menu ? "d-block": null '/>
       </span>
       <span
         class="change-mode"
@@ -46,15 +47,15 @@ export default {
       }
     }
 
-    const mouseOn = () => {
-      menu.value = true
+    const mouseOn = (value) => {
+      menu.value = value
     }
 
     return {
       theme,
       darkModeBtn,
       mouseOn,
-      menu,
+      menu
     }
   },
 }
