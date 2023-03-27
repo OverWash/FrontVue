@@ -85,51 +85,16 @@
 import 'animate.css'
 import { requestReservation } from '@/api/index.js'
 import { ref } from 'vue'
+import store from '@/store/store'
 
 export default {
   data() {
     return {
       Rswitch: 1,
-      // formData: {
-      //   collectDate: null,
-      //   request: '',
-      // },
     }
   },
-  // computed: {
-  //   isDateSelected() {
-  //     return (
-  //       this.formData.collectDate !== null &&
-  //       this.formData.collectDate !== '' &&
-  //       this.formData.collectDate !== undefined
-  //     )
-  //   },
-  //   minDate() {
-  //     const today = new Date()
-  //     const dd = String(today.getDate()).padStart(2, '0')
-  //     const mm = String(today.getMonth() + 1).padStart(2, '0')
-  //     const yyyy = today.getFullYear()
-  //     return yyyy + '-' + mm + '-' + dd
-  //   },
-  //   maxDate() {
-  //     const today = new Date()
-  //     today.setDate(today.getDate() + 5)
-  //     const dd = String(today.getDate()).padStart(2, '0')
-  //     const mm = String(today.getMonth() + 1).padStart(2, '0')
-  //     const yyyy = today.getFullYear()
-  //     return yyyy + '-' + mm + '-' + dd
-  //   },
-  // },
+
   methods: {
-    // onInput() {
-    //   const date = new Date(this.formData.collectDate)
-    //   date.setHours(0, 0, 0, 0)
-    //   this.formData.collectDate = date
-    //     .toISOString()
-    //     .slice(0, 19)
-    //     .replace('T', ' ')
-    //   document.getElementById('collectDate').value = this.formData.collectDate
-    // },
     openReservationRequest() {
       if (this.Rswitch === 1) {
         this.Rswitch = 0
@@ -138,11 +103,9 @@ export default {
       }
     },
 
-    // submitForm() {
-
-    // },
   },
   setup() {
+    const id = store.state.userid;
     const data = ref({
       collectDate: '',
       request: '',
@@ -151,7 +114,7 @@ export default {
     const submitForm = () => {
       // if (this.isDateSelected) {
         console.log(data.value)
-        requestReservation(data.value)
+        requestReservation(id, data.value)
           .then((res) => {
             console.log(res)
             alert('예약을 진행합니다.')
@@ -168,7 +131,8 @@ export default {
 
     return {
       data,
-      submitForm
+      submitForm,
+      id
     }
   },
 }

@@ -11,8 +11,6 @@
       <ReservationList :reservationList="reservationList" />
 
       <PaymentRequestList :prList="prList" />
-
-      <ReservationTable :reservationList="reservationList" />
     </div>
   </div>
   <!-- End Content Row -->
@@ -20,12 +18,13 @@
 
 <script>
 import { ref } from 'vue'
+import { getReservationList } from '@/api/index.js'
+import store from '@/store/store.js'
 import ReservationRequest from '@/components/mainPage/ReservationRequest.vue'
 import ReservationLast from '@/components/mainPage/ReservationLast.vue'
 import ReservationList from '@/components/mainPage/ReservationList.vue'
 import PaymentRequestList from '@/components/mainPage/PaymentRequestList.vue'
-import ReservationTable from '@/components/mainPage/ReservationTable.vue'
-//import { useRouter } from 'vue-router';
+import { failToast } from '@/sweetAlert'
 
 
 export default {
@@ -34,47 +33,45 @@ export default {
     ReservationLast,
     ReservationList,
     PaymentRequestList,
-    ReservationTable,
   },
 
   setup() {
+    const id = store.state.userid
+
     const reservationList = ref([])
-    const prList = ref([])
 
-    const getReservationList = async () => {
-      try {
-        // const res = await axios.get(
-        //   // 임시로 1번 멤버 불러오기
-        //   //'http://127.0.0.1:8100/reservations/1'
-        //   'http://127.0.0.1:8100/reservations/1'
-        // )
-
-        //reservationList.value = res.data
-      } catch (err) {
-        console.log(err)
-      }
+    const getList = () => {
+      const response = getReservationList(id, 1, 5)
+      response
+        .then((res) =>{
+          console.log(res.data)
+          reservationList.value = res.data.reservations
+        })
+        .catch(() => {
+          failToast('데이터 로딩에 실패하였습니디.')
+        })
     }
+    getList();
+    
+    // const getReservationList = async () => {
+    //   try {
+    //     // const res = await axios.get(
+    //     //   // 임시로 1번 멤버 불러오기
+    //     //   //'http://127.0.0.1:8100/reservations/1'
+    //     //   'http://127.0.0.1:8100/reservations/1'
+    //     // )
 
-    const getPrList = async () => {
-      try {
-        // const res = await axios.get(
-        //   // 임시로 1번 멤버 불러오기
-        //   'http://127.0.0.1:8100/payments/1'
-        // )
-        // prList.value = res.data
-      } catch (err) {
-        console.log(err)
-      }
-    }
+    //     //reservationList.value = res.data
+    //   } catch (err) {
+    //     console.log(err)
+    //   }
+    // }
 
-    getReservationList()
-    getPrList();
 
     return {
       reservationList,
-      prList,
-      getReservationList,
-      getPrList
+      store,
+      getList
     }
   },
 }

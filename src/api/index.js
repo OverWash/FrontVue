@@ -130,9 +130,9 @@ export const createReceipt = (id, data) => {
   })
 }
 
-export const requestReservation = (data) =>{
+export const requestReservation = (id, data) =>{
   return client({
-    url: `reservations/`,
+    url: `reservations/${id}`,
     method: 'post',
     data: data,
   })

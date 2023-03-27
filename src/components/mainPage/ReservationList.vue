@@ -9,7 +9,7 @@
         <!--v-for-->
         <div
           class="reservations"
-          v-for="(reservation) in reservations.slice(0, 5)"
+          v-for="(reservation) in reservations"
           :key="reservation.reservationId"
         >
           <h4 class="small font-weight-bold">
@@ -26,8 +26,6 @@
               }"
             ></div>
           </div>
-        </div>
-        <!--v-for-->
         </div>
         <!--v-for-->
       </div>
