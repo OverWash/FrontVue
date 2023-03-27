@@ -87,10 +87,14 @@ export const getReservationList = (id, p, a) => {
   })
 }
 
-export const getPriceList = () => {
+export const getPriceList = (p, a) => {
   return client({
     url: 'info/price',
-    method: 'get'
+    method: 'get',
+    params: {
+      page: p,
+      amount: a
+    }
   })
 }
 
@@ -112,10 +116,14 @@ export const getPrDetail = (id) => {
   })
 }
 
-export const getCheckList = (id) => {
+export const getCheckList = (id, p, a) => {
   return client({
     url: `/check/${id}`,
     method: 'get',
+    params: {
+      page: p,
+      amount: a
+    }
   })
 }
 
@@ -126,5 +134,23 @@ export const createReceipt = (id, data) => {
     data: {
       "paymentMethod": data
     },
+  })
+}
+
+export const getReceiptList = (id, p, a) => {
+  return client({
+    url: `/payment/receipt-list/${id}`,
+    method: 'get',
+    params: {
+      page: p,
+      amount: a
+    }
+  })
+}
+
+export const getReceiptDetail = (id) => {
+  return client({
+    url: `/payment/receipt/${id}`,
+    method: 'get',
   })
 }

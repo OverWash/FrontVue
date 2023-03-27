@@ -1,9 +1,7 @@
 <template>
   <div class="max-width">
     <CheckTable :id="confirmId" v-if="showCheck" />
-
     <button class="btn btn-secondary btn-sm" @click="goback">돌아가기</button>
-    <button class="btn btn-primary btn-sm" @click="showModal">결제하기</button>
   </div>
 </template>
 
@@ -11,8 +9,8 @@
 import router from '@/router/router'
 import { useRoute } from 'vue-router'
 import { onMounted, ref } from 'vue'
-import { getPrDetail } from '@/api'
-import { failToast, paymentModal } from '@/sweetAlert'
+import { getReceiptDetail } from '@/api/index.js'
+import { failToast } from '@/sweetAlert'
 import CheckTable from './CheckTable.vue'
 
 export default {
@@ -21,41 +19,37 @@ export default {
   },
   setup() {
     const route = useRoute()
-    const prId = route.params.id
+    const rId = route.params.id
     const confirmId = ref(-1)
-    const pr = ref({})
+    const receipt = ref({})
+
     const showCheck = ref(false)
 
+    // 영수증 하나 가져오기 테스트
     onMounted(() => {
-      getPrDetail(prId)
+      getReceiptDetail(rId)
         .then((res) => {
-          console.log(res.data)
-          pr.value = res.data
+          receipt.value = res.data
+          //   console.log(receipt.value)
 
-          confirmId.value = pr.value.confirm.confirmId
+          confirmId.value = receipt.value.pr.confirm.confirmId
           showCheck.value = true
         })
         .catch(() => {
-          failToast('결제요청서 로딩에 실패하였습니다.')
+          failToast('영수증 로딩에 실패하였습니다.')
         })
     })
-
-    const showModal = () => {
-      paymentModal(prId)
-    }
 
     const goback = () => {
       router.go(-1)
     }
 
     return {
-      goback,
-      route,
-      prId,
-      pr,
-      showModal,
+      rId,
       confirmId,
+      receipt,
       showCheck,
+      goback,
     }
   },
 }
