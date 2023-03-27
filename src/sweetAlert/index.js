@@ -1,12 +1,12 @@
 import Swal from "sweetalert2";
-import { createReceipt } from "@/api";
+import { createReceipt, deleteReservation } from "@/api";
 
 
 export const infoAlert = (text) => {
     Swal.fire({
-      icon: 'info',
-      title: '알림',
-      text: text,
+        icon: 'info',
+        title: '알림',
+        text: text,
     })
 }
 
@@ -42,8 +42,8 @@ export const paymentModal = (id) => {
         title: '결제하기',
         input: 'select',
         inputOptions: {
-            문화상품권 : '문화상품권',
-            모바일결제 : '모바일결제',
+            문화상품권: '문화상품권',
+            모바일결제: '모바일결제',
             신용카드: '신용카드',
             토스: '토스',
             PAYCO: 'PAYCO',
@@ -66,4 +66,49 @@ export const paymentModal = (id) => {
 
         }
     })
+}
+// sweetalert 으로 작성해봄
+export const deleteModal = (reservationId) => {
+    Swal.fire({
+        title: '정말 삭제할까요?',
+        test: '삭제한 예약건은 되돌릴 수 없습니다!',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: '삭제',
+
+    }).then((result) => {
+        if (result.isConfirmed) {
+            deleteReservation(reservationId),
+                Swal.fire(
+                    '삭제 완료',
+                    '예약건이 삭제되었습니다.',
+                    'success'
+                ).then(() => {
+                    location.reload();
+                  });
+        }
+    })
+}
+
+export const updateRequestModal = (reservationId) => {
+    
+    Swal.fire({
+        
+        input: 'textarea',
+        inputLabel: '수정하려는 내용을 입력해 주세요!',
+        inputPlaceholder: '수정 내용 입력...',
+        showCancelButton: true,
+        
+        didClose: (modal) => {
+            const text = modal.value;
+            if(text){
+                console.log('reservationId:', reservationId);
+                console.log('request:', text);
+            }
+            
+
+          }
+    })
+
 }

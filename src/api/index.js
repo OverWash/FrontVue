@@ -137,3 +137,18 @@ export const requestReservation = (id, data) =>{
     data: data,
   })
 }
+
+export const deleteReservation = (id) =>{
+  return client({
+    url: `reservations/${id}`,
+    method: 'delete',
+  })
+}
+
+export const updateReservationRequest = (id, data) =>{
+  return client({
+    url: `reservations/${id}`,
+    method: 'patch',
+    data: data,
+  })
+}

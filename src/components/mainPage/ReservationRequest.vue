@@ -118,8 +118,8 @@ export default {
           .then((res) => {
             console.log(res)
             alert('예약을 진행합니다.')
-            console.log(data.value)
-            //location.reload()
+            console.log(data.value);
+            location.reload();
           })
           .catch((err) => {
             console.log(err)

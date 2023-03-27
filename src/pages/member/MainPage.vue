@@ -18,14 +18,13 @@
 
 <script>
 import { ref } from 'vue'
-import { getReservationList } from '@/api/index.js'
+import { getReservationList, getPrList } from '@/api/index.js'
 import store from '@/store/store.js'
 import ReservationRequest from '@/components/mainPage/ReservationRequest.vue'
 import ReservationLast from '@/components/mainPage/ReservationLast.vue'
 import ReservationList from '@/components/mainPage/ReservationList.vue'
 import PaymentRequestList from '@/components/mainPage/PaymentRequestList.vue'
 import { failToast } from '@/sweetAlert'
-
 
 export default {
   components: {
@@ -39,11 +38,12 @@ export default {
     const id = store.state.userid
 
     const reservationList = ref([])
+    const prList = ref([])
 
     const getList = () => {
       const response = getReservationList(id, 1, 5)
       response
-        .then((res) =>{
+        .then((res) => {
           console.log(res.data)
           reservationList.value = res.data.reservations
         })
@@ -51,27 +51,28 @@ export default {
           failToast('데이터 로딩에 실패하였습니디.')
         })
     }
-    getList();
-    
-    // const getReservationList = async () => {
-    //   try {
-    //     // const res = await axios.get(
-    //     //   // 임시로 1번 멤버 불러오기
-    //     //   //'http://127.0.0.1:8100/reservations/1'
-    //     //   'http://127.0.0.1:8100/reservations/1'
-    //     // )
+    getList()
 
-    //     //reservationList.value = res.data
-    //   } catch (err) {
-    //     console.log(err)
-    //   }
-    // }
+    const getPrListToMain = () => {
+      const response = getPrList(id, 1, 5)
+      response
+        .then((res) => {
+          console.log('prList = ' + res.data)
+          prList.value = res.data.paymentRequests
+        })
+        .catch(() => {
+          failToast('데이터 로딩에 실패하였습니디.')
+        })
+    }
+    getPrListToMain()
 
 
     return {
       reservationList,
+      prList,
       store,
-      getList
+      getList,
+      getPrListToMain,
     }
   },
 }

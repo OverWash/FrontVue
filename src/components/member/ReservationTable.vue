@@ -8,6 +8,7 @@
           <th scope="col">수거(예정)일</th>
           <th scope="col">예약상태</th>
           <th scope="col">요청사항</th>
+          <th scope="col">비고</th>
         </tr>
       </thead>
       <tbody>
@@ -22,6 +23,24 @@
               @click="showModal(r.request)"
             >
               상세보기
+            </button>
+          </td>
+          <td>
+            <!-- <span style="margin-right:20px"></span> -->
+            <button
+              v-show="r.reservationStatus === '주문접수'"
+              class="btn btn-dark btn-sm"
+              @click="showDeleteModal(r.reservationId)"
+            >
+              삭제
+            </button>
+            <span style="margin-right:10px"></span>
+            <button
+              v-show="r.reservationStatus === '주문접수'"
+              class="btn btn-info btn-sm"
+              @click="showUpdateRequestModal(r.reservationId)"
+            >
+              수정
             </button>
           </td>
         </tr>
@@ -54,7 +73,7 @@
 // import router from '@/router/router'
 import { ref } from 'vue'
 import { getReservationList } from '@/api/index.js'
-import { showRequest, failToast } from '@/sweetAlert'
+import { showRequest, failToast, deleteModal, updateRequestModal } from '@/sweetAlert'
 import store from '@/store/store'
 
 export default {
@@ -85,6 +104,13 @@ export default {
       showRequest(data)
     }
 
+    const showDeleteModal = (id, reservationId) => {
+      deleteModal(id, reservationId)
+    }
+    const showUpdateRequestModal = (reservationId) => {
+      updateRequestModal(reservationId)
+    }
+
     return {
       list,
       showModal,
@@ -92,6 +118,9 @@ export default {
       pagination,
       getList,
       id,
+
+      showDeleteModal,
+      showUpdateRequestModal
     }
   },
 }
