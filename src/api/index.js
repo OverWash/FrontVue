@@ -26,6 +26,23 @@ export const logout = () => {
   })
 }
 
+export const getReservationConfirmeds=(page)=>{
+
+  return client({
+    url:'/admin/confirmed',
+    method:'post',
+    data:page,
+  })
+}
+
+export const getPaymentRequests=(page)=>{
+  return client({
+    url:'/admin/rc/list',
+    method:'post',
+    data:page
+  })
+}
+
 export const checkEmail = (param) => {
   return client({
     url: '/check',
