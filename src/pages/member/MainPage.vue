@@ -20,7 +20,6 @@
 
 <script>
 import { ref } from 'vue'
-import axios from 'axios'
 import ReservationRequest from '@/components/mainPage/ReservationRequest.vue'
 import ReservationLast from '@/components/mainPage/ReservationLast.vue'
 import ReservationList from '@/components/mainPage/ReservationList.vue'
@@ -44,13 +43,13 @@ export default {
 
     const getReservationList = async () => {
       try {
-        const res = await axios.get(
-          // 임시로 1번 멤버 불러오기
-          //'http://127.0.0.1:8100/reservations/1'
-          'http://127.0.0.1:8100/reservations/1'
-        )
+        // const res = await axios.get(
+        //   // 임시로 1번 멤버 불러오기
+        //   //'http://127.0.0.1:8100/reservations/1'
+        //   'http://127.0.0.1:8100/reservations/1'
+        // )
 
-        reservationList.value = res.data
+        //reservationList.value = res.data
       } catch (err) {
         console.log(err)
       }
@@ -58,11 +57,11 @@ export default {
 
     const getPrList = async () => {
       try {
-        const res = await axios.get(
-          // 임시로 1번 멤버 불러오기
-          'http://127.0.0.1:8100/payments/1'
-        )
-        prList.value = res.data
+        // const res = await axios.get(
+        //   // 임시로 1번 멤버 불러오기
+        //   'http://127.0.0.1:8100/payments/1'
+        // )
+        // prList.value = res.data
       } catch (err) {
         console.log(err)
       }
