@@ -12,21 +12,21 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-              <th scope="col"></th>
+              <th scope="col">예약확정번호</th>
+              <th scope="col">확정일자</th>
+              <th scope="col">고객 전화번호</th>
+              <th scope="col">고객 닉네임</th>
+              <th scope="col">검수하기</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="item-select " v-for="(data, index) in dummy " :key="index">
-              <th scope="row">{{ data.id }}</th>
-              <td>{{ data.first }}</td>
-              <td>{{ data.last }}</td>
-              <td>{{ data.Handle }}</td>
+              <tr class="item-select " v-for="(rc, index) in reservationConfirmeds " :key="index">
+              <th scope="row">{{ rc.confirmId }}</th>
+              <td>{{ rc.confirmDate}}</td>
+              <td>{{ rc.reservation.member.memberContact }}</td>
+              <td>{{ rc.reservation.member.nickname }}</td>
               <td class="d-flex justify-content-end"><button class="btn btn-primary btn-sm"
-                  @click="showModal(data.id)">검수하기</button></td>
+                  @click="showModal(rc.confirmId)">검수하기</button></td>
             </tr>
           </tbody>
         </table>
@@ -42,19 +42,19 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-              <th scope="col"></th>
+              <th scope="col">예약확정번호</th>
+              <th scope="col">확정일자</th>
+              <th scope="col">고객 전화번호</th>
+              <th scope="col">고객 닉네임</th>
+              <th scope="col">세탁완료</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="item-select " v-for="(data, index) in dummy " :key="index">
-              <th scope="row">{{ data.id }}</th>
-              <td>{{ data.first }}</td>
-              <td>{{ data.last }}</td>
-              <td>{{ data.Handle }}</td>
+            <tr class="item-select " v-for="(data, index) in paymentRequests " :key="index">
+              <td>{{ data.confirmId}}</td>
+              <td>{{ data.confirmDate }}</td>
+              <td>{{ data.reservation.member.memberContact }}</td>
+              <td>{{ data.reservation.member.nickname }}</td>
               <td class="d-flex justify-content-end"><button class="btn btn-primary btn-sm ">세탁완료</button></td>
             </tr>
           </tbody>
@@ -62,49 +62,48 @@
       </div>
       <!-- <AdminDetailTable  /> -->
     </div>
-    <AdminModal v-show="check" class="modal" />
+    <AdminModal v-show="check" class="modal" :check='check' />
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import {  ref } from 'vue'
 import AdminModal from './AdminModal.vue';
+import { getPaymentRequests, getReservationConfirmeds } from '@/api'
 
 export default {
   components: {
     AdminModal
   },
+
   setup() {
+    const reservationConfirmeds = ref({});
+    const paymentRequests = ref({});
+    const page = ref({
+      pageNum: 1,
+      amount: 5,
+    })
+    const reservationData = getReservationConfirmeds(page.value);
+    reservationData.then((response)=>{
+      reservationConfirmeds.value = response.data.reservationConfirmeds
+    })
+    const paymentRequestData = getPaymentRequests(page.value);
+    paymentRequestData.then((response)=>{
+      paymentRequests.value =response.data.paymentCompletes
+      console.log(paymentRequests.value)
+    })
     const check = ref(false);
-    const dummy = ref([
-      {
-        id: 1,
-        first: "Confirm1",
-        last: "Otto",
-        Handle: "@mdo",
-      },
-      {
-        id: 2,
-        first: "Confirm2",
-        last: "Thornton",
-        Handle: "@fat",
-      },
-      {
-        id: 3,
-        first: "Confirm3",
-        last: "Laundry",
-        Handle: "@twitter",
-      },
-    ]);
     const showModal = (id) => {
       check.value = true;
-      console.log(id);
+      console.log(id)
+
     }
+
     return {
-      dummy,
       showModal,
       check,
-
+      reservationConfirmeds,
+      paymentRequests
     }
   }
 
