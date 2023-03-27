@@ -11,7 +11,7 @@
       <tbody>
         <tr v-for="(item, index) in list" :key="index">
           <th scope="row">{{ item.name }}</th>
-          <td>{{ item.price }}</td>
+          <td>{{ item.laundryPrice.price }}</td>
           <td v-if="item.type == 'c'">의류</td>
           <td v-else-if="item.type == 's'">신발</td>
           <td v-else-if="item.type == 'b'">침구류</td>

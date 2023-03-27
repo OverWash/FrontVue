@@ -54,11 +54,11 @@
 // import router from '@/router/router'
 import { ref } from 'vue'
 import { getReservationList } from '@/api/index.js'
-import { useStore } from 'vuex'
 import { showRequest, failToast } from '@/sweetAlert'
+import store from '@/store/store'
+
 export default {
   setup() {
-    const store = useStore()
     const id = store.state.userid
 
     const list = ref({})

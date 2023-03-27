@@ -1,8 +1,12 @@
 import axios from 'axios'
 import swal from 'sweetalert2'
+import store from '@/store/store'
 
 const client = axios.create()
 client.defaults.baseURL = '/'
+
+const token = store.state.token
+client.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
 client.interceptors.response.use(
   (response) => {

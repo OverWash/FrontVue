@@ -6,6 +6,7 @@ const store = createStore({
     state: {
         role: "",
         userid: "",
+        token: "",
     },
     // state를 변경할 수 있는 로직 정의 (동기적)
     mutations: {
@@ -14,6 +15,9 @@ const store = createStore({
       }, 
       setUserId(state, id) {
         state.userid = id;
+      },
+      setToken(state, t) {
+        state.token = t;
       }
     },
     plugins: [ createPersistedState({

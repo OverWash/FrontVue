@@ -21,10 +21,9 @@
 import swal from 'sweetalert2'
 import { logout } from '@/api/index.js'
 import router from '@/router/router'
-import { useStore } from 'vuex'
+import store from '@/store/store'
 export default {
   setup() {
-    const store = useStore()
     const modifyBtn = () => {
       console.log(store.state.role)
       switch (store.state.role) {
