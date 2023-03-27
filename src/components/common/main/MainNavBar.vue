@@ -27,7 +27,7 @@
 <script>
 import { onMounted, ref } from 'vue'
 import { AdminNavBar, CrewNavBar, MemberNavBar } from '../../navbar/index.js'
-import { useStore } from 'vuex'
+import store from '@/store/store.js'
 
 export default {
   setup() {
@@ -43,9 +43,8 @@ export default {
       }
     }
 
-    const store = useStore()
     onMounted(() => {
-      info.value.role = store.state.role;
+      info.value.role = store.state.role
     })
 
     return {

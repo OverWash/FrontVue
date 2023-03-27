@@ -50,13 +50,13 @@
 
 <script>
 import { ref } from 'vue'
-import { useStore } from 'vuex'
 import { getPrList } from '@/api'
 import { failToast } from '@/sweetAlert'
 import router from '@/router/router'
+import store from '@/store/store'
+
 export default {
   setup() {
-    const store = useStore()
     const id = store.state.userid
 
     const list = ref({})
