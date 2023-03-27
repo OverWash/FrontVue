@@ -83,23 +83,17 @@
 
 <script>
 import 'animate.css'
-// import axios from 'axios'
 import { requestReservation } from '@/api/index.js'
 import { ref } from 'vue'
-
-// const instance = axios.create({
-//   xsrfCookieName: 'csrftoken', // CSRF 토큰이 저장된 쿠키의 이름
-//   xsrfHeaderName: 'X-CSRFToken', // CSRF 토큰이 포함될 요청 헤더의 이름
-// })
 
 export default {
   data() {
     return {
       Rswitch: 1,
-      formData: {
-        collectDate: null,
-        request: '',
-      },
+      // formData: {
+      //   collectDate: null,
+      //   request: '',
+      // },
     }
   },
   // computed: {
@@ -156,22 +150,13 @@ export default {
 
     const submitForm = () => {
       // if (this.isDateSelected) {
-        // instance
-        //   .post('http://127.0.0.1:8100/reservations/1', this.formData)
-        //   .then((response) => {
-        //     console.log(response.data)
-        //     alert('예약 성공!')
-        //     location.reload()
-        //   })
-        //   .catch((error) => {
-        //     console.log(error.response.data)
-        //   })
         console.log(data.value)
         requestReservation(data.value)
           .then((res) => {
             console.log(res)
-            alert('예약 성공!')
-            location.reload()
+            alert('예약을 진행합니다.')
+            console.log(data.value)
+            //location.reload()
           })
           .catch((err) => {
             console.log(err)

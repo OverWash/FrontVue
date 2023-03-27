@@ -28,7 +28,7 @@ export const logout = () => {
 
 export const requestReservation = (data) =>{
   return client({
-    url: `reservations/1`,
+    url: `reservations/`,
     method: 'post',
     data: data,
   })
