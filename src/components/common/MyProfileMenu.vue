@@ -37,10 +37,6 @@ export default {
       }
     }
 
-    const setRole = () => {
-      store.commit('setRole', '')
-    }
-
     const logoutBtn = () => {
       swal
         .fire({
@@ -56,11 +52,10 @@ export default {
         })
         .then((res) => {
           if (res.isConfirmed) {
-            logout().then((res) => {
-              console.log('로그아웃 요청 결과 : ' + res.status)
-              console.log('로그아웃 성공')
+            logout().then(() => {
               // state 초기화
-              setRole()
+              store.commit('setRole', '')
+              store.commit('setUserId', '')
               router.push({ name: 'Login' })
             })
           }
@@ -70,7 +65,6 @@ export default {
     return {
       modifyBtn,
       logoutBtn,
-      setRole,
       store,
     }
   },
