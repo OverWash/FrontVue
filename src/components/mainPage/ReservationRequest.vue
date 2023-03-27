@@ -1,6 +1,5 @@
 <template>
   <div class="col-xl-6">
-    <!-- <Transition name="fade" mode="out-in"> -->
     <div
       class="card shadow mb-4"
       id="requestPictureDiv"
@@ -16,9 +15,7 @@
         <h4 class="m-0 font-weight-bold text-dark">+예약하기</h4>
       </div>
     </div>
-    <!-- </Transition> -->
     <!-- Reservation request Modal-->
-    <!-- <Transition name="fade" mode="out-in"> -->
     <div class="card shadow mb-4" v-if="Rswitch === 0" id="requestFormDiv">
       <form @submit.prevent="submitForm">
         <div class="col-sm-12 mb-4" style="margin-top: 1rem">
@@ -33,9 +30,10 @@
                 type="date"
                 id="collectDate"
                 name="collectDate"
-
                 v-model="data.collectDate"
-                @input="onInput"
+                :min="minDate"
+                :max="maxDate"
+                @input="checkDate"
               />
               <hr />
               <h6><b>요청사항을 입력해 주세요</b></h6>
@@ -54,9 +52,8 @@
               href="#"
               @click="submitForm"
               class="btn btn-primary btn-icon-split btn-sm"
-              
+              :disabled="!data.collectDate"
             >
-            <!-- :disabled="!isDateSelected" -->
               <span class="icon text-white-60">
                 <i class="fas fa-check"></i>
               </span>
@@ -76,13 +73,11 @@
         </div>
       </form>
     </div>
-    <!-- </Transition> -->
     <!-- Reservation request Modal-->
   </div>
 </template>
 
 <script>
-import 'animate.css'
 import { requestReservation } from '@/api/index.js'
 import { ref } from 'vue'
 import store from '@/store/store'
@@ -91,15 +86,45 @@ export default {
   data() {
     return {
       Rswitch: 1,
+      minDate: '',
+      maxDate: '',
     }
   },
 
   methods: {
-    openReservationRequest() {
+     openReservationRequest() {
       if (this.Rswitch === 1) {
         this.Rswitch = 0
+        const today = new Date()
+        this.minDate = today.toISOString().slice(0, 10)
+        const maxDate = new Date(today)
+        maxDate.setDate(maxDate.getDate() + 5)
+        this.maxDate = maxDate.toISOString().slice(0, 10)
       } else {
         this.Rswitch = 1
+      }
+    },
+
+    onInput(event) {
+      // 오늘 날짜 구하기
+      const today = new Date()
+      today.setHours(0, 0, 0, 0)
+
+      // 입력된 날짜 구하기
+      const selectedDate = new Date(event.target.value)
+      selectedDate.setHours(0, 0, 0, 0)
+
+      // 오늘 이전의 날짜인 경우 입력된 값을 삭제하고 알림 메시지 출력
+      if (selectedDate < today) {
+        alert('오늘 이전의 날짜는 선택할 수 없습니다.')
+        event.target.value = ''
+        this.data.collectDate = ''
+      }
+      // 오늘로부터 5일 이후의 날짜인 경우 입력된 값을 삭제하고 알림 메시지 출력
+      else if (selectedDate > new Date(today.getTime() + 5 * 24 * 60 * 60 * 1000)) {
+        alert('오늘부터 5일 이후의 날짜까지만 선택할 수 있습니다.')
+        event.target.value = ''
+        this.data.collectDate = ''
       }
     },
 
@@ -112,7 +137,11 @@ export default {
     })
 
     const submitForm = () => {
-      // if (this.isDateSelected) {
+      // 날짜를 선택하지 않은 경우 알림 메시지 출력 후 제출하지 않음
+      if (data.value.collectDate === '') {
+        alert('희망 수거 날짜를 선택해주세요.')
+        return
+      }
         console.log(data.value)
         requestReservation(id, data.value)
           .then((res) => {
@@ -124,9 +153,6 @@ export default {
           .catch((err) => {
             console.log(err)
           })
-      // } else {
-      //   alert('날짜를 선택하세요!')
-      // }
     }
 
     return {
@@ -143,14 +169,5 @@ export default {
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.5rem;
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>
