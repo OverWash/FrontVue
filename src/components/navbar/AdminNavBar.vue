@@ -38,7 +38,7 @@ export default {
     const onClick = (id) => {
       checkBtn.value = id;
       if (id === 1) {
-        router.push("/admin/")
+        router.push("/admin/main")
       }
 
       if (id === 2) {

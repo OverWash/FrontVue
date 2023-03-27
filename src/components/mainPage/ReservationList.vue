@@ -8,15 +8,16 @@
       <div class="card-body">
         <!--v-for-->
         <div
-          v-for="reservation in reservationList.slice(0, 5)"
-          :key="reservation.reservationId" 
+          v-for="reservation in reservationList"
+          :key="reservation.reservationId"
           class="reservations"
-        >      <!-- key 는 필수 -->
+        >
+          <!-- key 는 필수 -->
           <h4 class="small fon--bold">
-            <span>No. {{reservation.reservationId}}</span> 
-            예약날짜 :{{reservation.reservationDate}}
+            <span>No. {{ reservation.reservationId }}</span>
+            예약날짜 :{{ reservation.reservationDate }}
             <span class="float-right"></span>
-            <span class="float-right">{{reservation.reservationStatus}}</span>
+            <span class="float-right">{{ reservation.reservationStatus }}</span>
           </h4>
           <div class="progress progress-sm mb-4">
             <div
@@ -24,10 +25,10 @@
               role="progressbar"
               id="ResStatProgressBar#"
               style="width: 10%"
-            >
-            </div>
+            ></div>
           </div>
-        </div><!--v-for-->
+        </div>
+        <!--v-for-->
       </div>
     </div>
   </div>
@@ -35,12 +36,12 @@
 
 <script>
 export default {
-  props :{
-    reservationList:{
-      type:Array,
+  props: {
+    reservationList: {
+      type: Array,
     },
   },
-};
+}
 </script>
 
 <style>

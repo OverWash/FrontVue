@@ -33,6 +33,10 @@ export default {
     name: {
       type: String,
       require: true,
+    },
+    responseData :{
+      type:Object,
+      require:true,
     }
 
   },

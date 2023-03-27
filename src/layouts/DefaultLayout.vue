@@ -10,12 +10,12 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref } from 'vue'
 
-import MainHeader from "@/components/common/MainHeader.vue";
-import MainFooter from "@/components/common/MainFooter.vue";
-import MainContainer from "@/components/common/MainContainer.vue";
-import MainNavBar from "@/components/common/MainNavBar.vue";
+import MainHeader from '@/components/common/main/MainHeader.vue'
+import MainFooter from '@/components/common/main/MainFooter.vue'
+import MainContainer from '@/components/common/main/MainContainer.vue'
+import MainNavBar from '@/components/common/main/MainNavBar.vue'
 
 export default {
   components: {
@@ -26,13 +26,13 @@ export default {
   },
   setup() {
     // document.documentElement.setAttribute('color-theme', 'light')
-    document.documentElement.setAttribute("data-bs-theme", "light");
-    const inputValue = ref("");
+    document.documentElement.setAttribute('data-bs-theme', 'light')
+    const inputValue = ref('')
     return {
       inputValue,
-    };
+    }
   },
-};
+}
 </script>
 
 <style>
