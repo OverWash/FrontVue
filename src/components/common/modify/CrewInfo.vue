@@ -18,7 +18,7 @@
             </div>
             <div class="reservationList">
               <h4 class="middle font-weight-bold">
-                비밀번호 <input type="password" class="form-control mt-2">
+                비밀번호 <input type="password" v-model="info.password" class="form-control mt-2">
               </h4>
             </div>
             <div class="reservationList">
@@ -42,8 +42,8 @@
               </h4>
             </div  >
             <div class="mb-4 d-flex flex-row justify-content-around">
-            <button id="modify" class="btn btn-primary mr-4 flex-fill" @click="clickBtn">수정</button>
-            <button id="remove" class="btn btn-primary flex-fill" @click="clickBtn">탈퇴</button><br>
+            <button class="btn btn-primary mr-4 flex-fill" @click="clickBtnM">수정</button>
+            <button class="btn btn-primary flex-fill" @click="clickBtnR">탈퇴</button><br>
           </div>
             <input type="password" class="form-control" v-model="checkPassword" placeholder="비밀번호를 입력하세요" v-show="check">
             <button class="btn btn-primary ml-4" @click="doCheck(checkPassword)">확인</button>
@@ -57,7 +57,7 @@
 
 <script>
 import { ref } from 'vue';
-import { getCrewInfo, checkPw } from '@/api';
+import { getCrewInfo, checkPw, modifyInfo, removeInfo } from '@/api';
 import { failToast, returnInfoAlert } from '@/sweetAlert'
 export default {
 
@@ -71,11 +71,20 @@ export default {
       carNumber:''
     });
     const checkPassword = ref('');
+	const flag = ref('');
 
     const check = ref(false);
-    const clickBtn=()=>{
+
+    const clickBtnM=()=>{
       check.value = true;
+	  flag.value = 'modify';
     }
+
+	const clickBtnR=()=>{
+      check.value = true;
+	  flag.value = 'remove';
+    }
+
     getCrewInfo().then((res) => {
       info.value.email = res.data.user.email;
       info.value.crewName = res.data.crewName;
@@ -84,11 +93,27 @@ export default {
       info.value.carNumber = res.data.carNumber;
     })
 
-    const doCheck = () => {
+    const doCheck = (checkPassword) => {
       
       checkPw(info.value.email, checkPassword).then((res) => {
         if (res.data === 'success') {
-          returnInfoAlert('비밀번호가 맞다.!');
+          if (flag.value === 'modify') {
+			modifyInfo(info.value).then((res) => {
+				if (res === 'success') {
+					returnInfoAlert('정보를 변경하였습니다.');
+				}
+			}).catch(() => {
+				failToast('정보 변경에 실패하였습니다. 다시 시도해주세요.');
+			})
+		  } else if (flag.value === 'remove') {
+			removeInfo().then((res) => {
+				if (res === 'success') {
+					returnInfoAlert('회원 탈퇴하였습니다.');
+				}
+			}).catch(() => {
+				failToast('회원 탈퇴에 실패하였습니다. 다시 시도해주세요.');
+			})
+		  }
         } else {
           failToast('비밀번호가 틀렸습니다.');
         }
@@ -100,7 +125,8 @@ export default {
 
     return {
      info,
-     clickBtn,
+     clickBtnR,
+	 clickBtnM,
      check,
      doCheck,
      checkPassword

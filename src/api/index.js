@@ -233,3 +233,30 @@ export const checkPw = (email, checkPassword) => {
     }
   })
 }
+
+export const modifyInfo = (info) => {
+	return client({
+		url : 'crew/modify',
+		method : 'patch',
+		data : {
+			user : {
+				"email" : info.email,
+				"password" : info.password
+			},
+			"crewId"     : info.crewId,
+	  		"crewBirth"  : info.crewBirth,
+      		"crewName"   : info.crewName,
+      		"crewContact": info.crewContact,
+      		"carType"    : info.carType,
+      		"carNumber"  : info.carNumber
+
+		}
+	})
+}
+
+export const removeInfo = () => {
+	return client({
+		url : 'crew/remove',
+		method : 'patch'
+	})
+}
