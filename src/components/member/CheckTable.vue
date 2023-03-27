@@ -1,23 +1,22 @@
 <template>
-  <div class="max-width">
-    <table v-show="list.length != 0" class="table">
+  <div>
+    <h3>금액 상세내역</h3>
+    <hr />
+    <table class="table">
       <thead>
         <tr>
-          <th scope="col">이름</th>
+          <th scope="col">품목</th>
           <th scope="col">가격</th>
-          <th scope="col">타입</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in list" :key="index">
-          <th scope="row">{{ item.name }}</th>
-          <td>{{ item.laundryPrice.price }}</td>
-          <td v-if="item.type == 'c'">의류</td>
-          <td v-else-if="item.type == 's'">신발</td>
-          <td v-else-if="item.type == 'b'">침구류</td>
+        <tr v-for="(item, index) in checklist" :key="index">
+          <td>{{ item.laundry.name }}</td>
+          <td>{{ item.laundry.laundryPrice.price }}</td>
         </tr>
       </tbody>
     </table>
+
     <div>
       <nav aria-label="Page navigation example">
         <ul class="pagination">
@@ -43,11 +42,14 @@
 
 <script>
 import { onMounted, ref } from 'vue'
-import { getPriceList } from '@/api/index.js'
+import { getCheckList } from '@/api'
 import { failToast } from '@/sweetAlert'
 export default {
-  setup() {
-    const list = ref({})
+  props: {
+    id: {},
+  },
+  setup(props) {
+    const checklist = ref({})
     const pagination = ref({})
     const currentPage = ref(1)
 
@@ -58,22 +60,22 @@ export default {
     const getList = (page) => {
       currentPage.value = page
 
-      getPriceList(page)
+      getCheckList(props.id, page, 3)
         .then((res) => {
-          list.value = res.data.laundries
-          pagination.value = res.data.laundryPaging
+          // console.log(res.data)
+          checklist.value = res.data.checks
+          pagination.value = res.data.checkPaging
         })
         .catch(() => {
-          failToast('가격표 로딩에 실패하였습니다.')
+          failToast('검수내역 로딩에 실패하였습니다.')
         })
     }
 
     return {
-      getList,
-
-      list,
+      checklist,
       pagination,
       currentPage,
+      getList,
     }
   },
 }
