@@ -63,9 +63,6 @@
                       </div>
                     </div>
 
-                    <!-- CSRF 토큰으로 domain 직접 입력 판별
-										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />  -->
-
                     <button
                       type="submit"
                       class="btn btn-secondary btn-user btn-block"
@@ -97,12 +94,11 @@
 </template>
 
 <script>
-import client from '@/api/client'
 import { login } from '@/api/index.js'
 // import VueCookie from 'vue-cookie'
 import { ref } from 'vue'
-import { useStore } from 'vuex'
 import router from '@/router/router.js'
+import store from '@/store/store'
 export default {
   setup() {
     const user = ref({
@@ -110,10 +106,16 @@ export default {
       password: '',
     })
 
-    const store = useStore()
+    const loginBtn = () => {
+      const response = login(user.value)
+      response.then((res) => {
+        // vuex state 저장
+        store.commit('setRole', res.headers.role)
+        store.commit('setUserId', res.headers.userid)
+        store.commit('setToken', res.headers.token)
 
-    const setRole = (role) => {
-      store.commit('setRole', role)
+        movePage(res.headers.role)
+      })
     }
 
     const movePage = (role) => {
@@ -130,23 +132,10 @@ export default {
       }
     }
 
-    const loginBtn = () => {
-      const response = login(user.value)
-      response.then((res) => {
-        const token = res.headers.token
-        client.defaults.headers.common['Authorization'] = `Bearer ${token}`
-
-        // 권한을 vuex state 에 저장
-        const role = res.headers.role
-        setRole(role)
-        movePage(role)
-      })
-    }
-
     return {
       user,
       loginBtn,
-      setRole,
+      movePage,
     }
   },
 }

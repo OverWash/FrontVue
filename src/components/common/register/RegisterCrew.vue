@@ -1,5 +1,5 @@
 <template>
-  <div class="container" style="margin-top: 20%">
+  <div class="container" style="margin-top: 12%">
     <div class="card o-hidden border-0 shadow-lg my-5">
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
@@ -46,13 +46,9 @@
                     </button>
                   </div>
 
-                  <div v-if="emailChecked">
-                    <div class="text-center" v-if="emailPossible">
-                      생성 가능한 아이디입니다.
-                    </div>
-                    <div class="text-center" v-else>
-                      이미 존재하는 아이디입니다.
-                    </div>
+                  <div v-if="emailChecked" class="text-center small">
+                    <div v-if="emailPossible">생성 가능한 아이디입니다.</div>
+                    <div v-else>이미 존재하는 아이디입니다.</div>
                   </div>
                 </div>
                 <div class="form-group">
@@ -76,6 +72,7 @@
                     name="crewName"
                     placeholder="이름"
                     required="required"
+                    v-model="crew.crewName"
                   />
                 </div>
 
@@ -88,7 +85,7 @@
                       name="crewContact"
                       placeholder="연락처(숫자만 입력)"
                       required="required"
-                      v-model="contact"
+                      v-model="crew.crewContact"
                     />
                   </div>
 
@@ -105,13 +102,9 @@
                     </button>
                   </div>
 
-                  <div v-if="contactChecked">
-                    <div class="text-center" v-if="contactPossible">
-                      등록 가능한 연락처입니다.
-                    </div>
-                    <div class="text-center" v-else>
-                      이미 존재하는 연락처입니다.
-                    </div>
+                  <div v-if="contactChecked" class="text-center small">
+                    <div v-if="contactPossible">등록 가능한 연락처입니다.</div>
+                    <div v-else>이미 존재하는 연락처입니다.</div>
                   </div>
                 </div>
 
@@ -123,6 +116,7 @@
                     name="crewBirth"
                     placeholder="생년월일"
                     required="required"
+                    v-model="crew.crewBirth"
                   />
                 </div>
 
@@ -135,6 +129,7 @@
                       name="carType"
                       placeholder="차종(ex. 모닝)"
                       required="required"
+                      v-model="crew.carType"
                     />
                   </div>
 
@@ -146,6 +141,7 @@
                       name="carNumber"
                       placeholder="차량 번호"
                       required="required"
+                      v-model="crew.carNumber"
                     />
                   </div>
                 </div>
@@ -175,24 +171,28 @@
 
 <script>
 import { reactive, ref } from 'vue'
-import axios from 'axios'
-import { toast } from 'vue3-toastify'
-import 'vue3-toastify/dist/index.css'
+import router from '@/router/router'
+import { checkContact, checkEmail, registerCrew } from '@/api/index.js'
+import { infoAlert, successToast } from '@/sweetAlert'
+
 export default {
   setup() {
     const emailChecked = ref(false)
     const emailPossible = ref(false)
     const contactChecked = ref(false)
     const contactPossible = ref(false)
-    const contact = ref('')
     const data = ref({})
     const user = reactive({
-      userId: '',
       email: '',
       password: '',
-      role: 'ROLE_MEMBER',
-      signDate: Date.now(),
-      enabled: 1,
+      role: 'ROLE_CREW',
+    })
+    const crew = reactive({
+      crewBirth: '',
+      crewContact: '',
+      crewName: '',
+      carType: '',
+      carNumber: '',
     })
 
     const onClick = (event) => {
@@ -200,42 +200,51 @@ export default {
 
       switch (id) {
         case 'emailCheckBtn':
-          checkDuplicate('email', user.email)
+          checkDuplicate('email')
           break
         case 'contactCheckBtn':
-          checkDuplicate('contact', contact.value)
+          checkDuplicate('contact')
           break
       }
     }
 
-    const checkDuplicate = async (type, param) => {
+    const checkDuplicate = async (type) => {
       switch (type) {
         case 'email':
           {
-            emailChecked.value = true
-            const res = await axios.get(
-              `http://localhost:3000/users?email=${param}`
-            )
-            data.value = res.data[0]
-            if (data.value) {
-              emailPossible.value = false
-            } else {
-              emailPossible.value = true
+            if (user.email == '') {
+              infoAlert('이메일을 입력해 주세요!')
+              return
             }
+
+            emailChecked.value = true
+
+            const response = checkEmail(user.email)
+            response.then((res) => {
+              if (res.data == 'possible') {
+                emailPossible.value = true
+              } else {
+                emailPossible.value = false
+              }
+            })
           }
           break
         case 'contact':
           {
-            contactChecked.value = true
-            const res = await axios.get(
-              `http://localhost:3000/member?memberContact=${param}`
-            )
-            data.value = res.data[0]
-            if (data.value) {
-              contactPossible.value = false
-            } else {
-              contactPossible.value = true
+            if (crew.crewContact == '') {
+              infoAlert('연락처를 입력해 주세요!')
+              return
             }
+
+            contactChecked.value = true
+            const response = checkContact('crew', crew.crewContact)
+            response.then((res) => {
+              if (res.data == 'possible') {
+                contactPossible.value = true
+              } else {
+                contactPossible.value = false
+              }
+            })
           }
           break
       }
@@ -243,31 +252,22 @@ export default {
 
     const onSubmit = () => {
       if (!emailPossible.value) {
-        notify('이메일 중복 검사를 완료해 주세요')
+        infoAlert('이메일 중복 검사를 완료해 주세요')
       }
-
       if (!contactPossible.value) {
-        notify('연락처 중복 검사를 완료해 주세요')
+        infoAlert('연락처 중복 검사를 완료해 주세요')
       }
-
       if (emailPossible.value && contactPossible.value) {
-        notify('모두 입력 완료')
-
-        axios
-          .post(`http://localhost:3000/users`, user)
-          .then((res) => {
-            if (res.status == 200) notify('회원가입이 완료되었습니다!')
-          })
-          .catch((err) => {
-            console.log(err)
-          })
+        const wrapper = {
+          user: user,
+          crew: crew,
+        }
+        const response = registerCrew(wrapper)
+        response.then((res) => {
+          if (res.status == 201) successToast('회원가입이 완료되었습니다!')
+          router.push('/login')
+        })
       }
-    }
-
-    const notify = (msg) => {
-      toast.info(msg, {
-        autoClose: 2000,
-      }) // ToastOptions
     }
 
     return {
@@ -275,13 +275,12 @@ export default {
       emailPossible,
       contactChecked,
       contactPossible,
-      contact,
       data,
       onClick,
       checkDuplicate,
       onSubmit,
-      notify,
       user,
+      crew,
     }
   },
 }

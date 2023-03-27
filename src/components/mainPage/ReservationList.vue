@@ -28,6 +28,8 @@
           </div>
         </div>
         <!--v-for-->
+        </div>
+        <!--v-for-->
       </div>
     </div>
   </div>
