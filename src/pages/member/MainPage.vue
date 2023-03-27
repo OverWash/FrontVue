@@ -46,8 +46,10 @@ export default {
       try {
         const res = await axios.get(
           // 임시로 1번 멤버 불러오기
+          //'http://127.0.0.1:8100/reservations/1'
           'http://127.0.0.1:8100/reservations/1'
         )
+
         reservationList.value = res.data
       } catch (err) {
         console.log(err)
@@ -61,7 +63,6 @@ export default {
           'http://127.0.0.1:8100/payments/1'
         )
         prList.value = res.data
-        console.log("test");
       } catch (err) {
         console.log(err)
       }
