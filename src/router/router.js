@@ -182,9 +182,33 @@ const routes = [
         }
       },
       {
+        path: '/crew/tobeollect',
+        name: 'ToBeCollect',
+        component: () => import('@/pages/crew/ToBeCollect.vue'),
+        meta: {
+          roles: ['ROLE_CREW']  
+        }
+      },
+      {
         path: '/crew/tobedelivery',
-        name: 'toBeDelivery',
+        name: 'ToBeDelivery',
         component: () => import('@/pages/crew/ToBeDelivery.vue'),
+        meta: {
+          roles: ['ROLE_CREW']  
+        }
+      },
+      {
+        path: '/crew/crewdelivering',
+        name: 'CrewDelivering',
+        component: () => import('@/pages/crew/CrewDelivering.vue'),
+        meta: {
+          roles: ['ROLE_CREW']  
+        }
+      },
+      {
+        path: '/crew/completedelivery',
+        name: 'CompleteDelivery',
+        component: () => import('@/pages/crew/CompleteDelivery.vue'),
         meta: {
           roles: ['ROLE_CREW']  
         }

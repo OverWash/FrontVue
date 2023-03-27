@@ -128,3 +128,108 @@ export const createReceipt = (id, data) => {
     },
   })
 }
+
+export const getCrewName = () => {
+  return client({
+    url    : '/crew/crew-name',
+    method : 'get'
+  })
+}
+
+export const getInProcessDeliveryCnt = () => {
+  return client({
+    url    : '/crew/in-process-cnt',
+    method : 'get'
+  })
+
+}
+
+export const getCompletedDeliveryCnt = () => {
+  return client({
+    url    : '/crew/completed-cnt',
+    method : 'get'
+  })
+}
+
+export const getPickupList = (page, amount) => {
+  return client({
+    url : '/delivery/pickup-list',
+    method : 'post',
+    data : {
+      'pageNum' : page,
+      'amount' : amount
+    }
+  })
+}
+
+export const getWcList = (page, amount) => {
+  return client({
+    url    : '/delivery/to-be',
+    method : 'post',
+    data   : {
+      'pageNum' : page,
+      'amount' : amount
+    }
+  })
+}
+
+export const collect = (rid) => {
+  return client({
+    url    : `/delivery/collect/${rid}`,
+    method : 'post'
+  })
+}
+
+export const delivery = (rid, wcId) => {
+  return client({
+    url : `/delivery/process/${rid}/${wcId}`,
+    method : 'post'
+  })
+}
+
+export const getDeliveringList = (page, amount) => {
+  return client({
+    url    : `/delivery/in-process`,
+    method : 'post',
+    data   : {
+      'pageNum' : page,
+      'amount' : amount
+    }
+  })
+}
+
+export const completeDelivery = (rid, deliveryid) => {
+  return client({
+    url    : `/delivery/completed/${rid}/${deliveryid}`,
+    method : 'post'
+  })
+}
+
+export const getCompleteDelivery = (page, amount) => {
+  return client({
+    url    : `/delivery/completed`,
+    method : 'post',
+    data   : {
+      'pageNum' : page,
+      'amount' : amount
+    }
+  })
+}
+
+export const getCrewInfo = () => {
+  return client({
+    url    : '/crew/modify',
+    method : 'get'
+  })
+}
+
+export const checkPw = (email, checkPassword) => {
+  return client({
+    url    : '/crew/checkpw',
+    method : 'post',
+    data   : {
+      "email" : email,
+      "password" : checkPassword
+    }
+  })
+}
