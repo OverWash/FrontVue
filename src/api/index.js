@@ -223,7 +223,7 @@ export const getCrewInfo = () => {
   })
 }
 
-export const checkPw = (email, checkPassword) => {
+export const checkPwCrew = (email, checkPassword) => {
   return client({
     url    : '/crew/checkpw',
     method : 'post',
@@ -234,29 +234,54 @@ export const checkPw = (email, checkPassword) => {
   })
 }
 
-export const modifyInfo = (info) => {
+export const modifyInfoCrew = (info) => {
+  console.log(info)
 	return client({
 		url : 'crew/modify',
 		method : 'patch',
-		data : {
-			user : {
-				"email" : info.email,
-				"password" : info.password
-			},
-			"crewId"     : info.crewId,
-	  		"crewBirth"  : info.crewBirth,
-      		"crewName"   : info.crewName,
-      		"crewContact": info.crewContact,
-      		"carType"    : info.carType,
-      		"carNumber"  : info.carNumber
-
-		}
+		data : info
+			
 	})
 }
 
-export const removeInfo = () => {
+export const removeInfoCrew = () => {
 	return client({
 		url : 'crew/remove',
 		method : 'patch'
 	})
 }
+
+export const getMemberInfo = () => {
+  return client({
+    url    : '/member/modify',
+    method : 'get'
+  })
+}
+
+export const checkPwMember = (email, checkPassword) => {
+  return client({
+    url    : '/member/checkpw',
+    method : 'post',
+    data   : {
+      "email" : email,
+      "password" : checkPassword
+    }
+  })
+}
+
+export const modifyInfoMember = (info) => {
+	return client({
+		url : 'member/modify',
+		method : 'patch',
+		data : info
+			
+	})
+}
+
+export const removeInfoMember = () => {
+	return client({
+		url : 'member/remove',
+		method : 'patch'
+	})
+}
+
