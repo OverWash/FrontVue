@@ -170,6 +170,12 @@ export const checkConfirmDetail=(confirmId)=>{
     method:'get',
 
   })
+}
 
-
+export const checkConfrimInsert=(confirmId,laundryData)=>{
+  return client({
+    url:`/admin/rc/${confirmId}/complete`,
+    method:'post',
+    data:laundryData,
+  })
 }
