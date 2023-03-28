@@ -99,6 +99,7 @@ import { login } from '@/api/index.js'
 import { ref } from 'vue'
 import router from '@/router/router.js'
 import store from '@/store/store'
+import client from '@/api/client'
 export default {
   setup() {
     const user = ref({
@@ -113,8 +114,8 @@ export default {
         store.commit('setRole', res.headers.role)
         store.commit('setUserId', res.headers.userid)
         store.commit('setToken', res.headers.token)
-
-        movePage(res.headers.role)
+        client.defaults.headers.common['Authorization'] = res.headers.token;
+        movePage(res.headers.role);
       })
     }
 
