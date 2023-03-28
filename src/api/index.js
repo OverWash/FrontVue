@@ -24,7 +24,8 @@ export const logout = () => {
     url: '/logout',
     method: 'post'
   })
-}
+} 
+
 
 export const getReservationConfirmeds=(page)=>{
 
@@ -87,10 +88,14 @@ export const getReservationList = (id, p, a) => {
   })
 }
 
-export const getPriceList = () => {
+export const getPriceList = (p, a) => {
   return client({
     url: 'info/price',
-    method: 'get'
+    method: 'get',
+    params: {
+      page: p,
+      amount: a
+    }
   })
 }
 
@@ -112,10 +117,14 @@ export const getPrDetail = (id) => {
   })
 }
 
-export const getCheckList = (id) => {
+export const getCheckList = (id, p, a) => {
   return client({
     url: `/check/${id}`,
     method: 'get',
+    params: {
+      page: p,
+      amount: a
+    }
   })
 }
 
@@ -158,6 +167,40 @@ export const getPickupList = (page, amount) => {
     data : {
       'pageNum' : page,
       'amount' : amount
+    }
+  })
+}
+export const requestReservation = (id, data) =>{
+  return client({
+    url: `reservations/${id}`,
+    method: 'post',
+    data: data,
+  })
+}
+
+export const deleteReservation = (id) =>{
+  return client({
+    url: `reservations/${id}`,
+    method: 'delete',
+  })
+}
+
+export const updateReservationRequest = (id, data) =>{
+  return client({
+    url: `reservations/${id}`,
+    method: 'patch',
+    data: {
+      "request" : data,
+    },
+  })
+}
+export const getReceiptList = (id, p, a) => {
+  return client({
+    url: `/payment/receipt-list/${id}`,
+    method: 'get',
+    params: {
+      page: p,
+      amount: a
     }
   })
 }
@@ -285,3 +328,9 @@ export const removeInfoMember = () => {
 	})
 }
 
+export const getReceiptDetail = (id) => {
+  return client({
+    url: `/payment/receipt/${id}`,
+    method: 'get',
+  })
+}

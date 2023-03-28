@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { getPrList } from '@/api'
 import { failToast } from '@/sweetAlert'
 import router from '@/router/router'
@@ -58,10 +58,13 @@ import store from '@/store/store'
 export default {
   setup() {
     const id = store.state.userid
-
     const list = ref({})
     const pagination = ref({})
     const currentPage = ref(1)
+
+    onMounted(() => {
+      getList(1)
+    })
 
     const detailPage = (id) => {
       router.push({
@@ -73,8 +76,7 @@ export default {
     const getList = (page) => {
       currentPage.value = page
 
-      const response = getPrList(id, page, 10)
-      response
+      getPrList(id, page, 10)
         .then((res) => {
           // console.log(res.data)
           list.value = res.data.paymentRequests
@@ -85,15 +87,14 @@ export default {
           failToast('결제요청서 리스트 로딩에 실패하였습니다.')
         })
     }
-    getList(1)
 
     return {
       list,
       id,
-      detailPage,
-      getList,
       pagination,
       currentPage,
+      detailPage,
+      getList,
     }
   },
 }

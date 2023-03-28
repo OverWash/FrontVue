@@ -110,7 +110,14 @@ const routes = [
           roles: ['ROLE_MEMBER']  
         }
       },
-
+      {
+        path: '/member/receipts/:id',
+        name: 'ReceiptDetail',
+        component: () => import('@/components/member/ReceiptDetail.vue'),
+        meta: {
+          roles: ['ROLE_MEMBER']  
+        }
+      },
       {
         path: '/member/info',
         name: "MemberInfo",
