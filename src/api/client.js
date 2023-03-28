@@ -14,7 +14,7 @@ client.interceptors.response.use(
     return response
   },
   (error) => {
-    if (error.response.status == 401) {
+    if (error.response.status == 401 || error.response.status == 403) {
       swal.fire({
         title: '로그인 실패',
         text: '입력 정보가 잘못되었습니다.',
