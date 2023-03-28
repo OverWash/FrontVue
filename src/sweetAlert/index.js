@@ -69,10 +69,10 @@ export const paymentModal = (id) => {
 }
 
 
-export const returnInfoAlert = (text) => {
+export const returnInfoAlert = (text,title) => {
     return Swal.fire({
-      icon: 'info',
-      title: '알림',
+      icon: 'success',
+      title: title,
       text: text,
     })
 }

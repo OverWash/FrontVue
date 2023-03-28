@@ -52,7 +52,7 @@
 
 <script>
 import { ref } from 'vue';
-import { getMemberInfo, checkPwMember, modifyInfoMember, removeInfoMember } from '@/api';
+import { getMemberInfo, checkPwMember, modifyInfoMember, removeInfoMember, collect } from '@/api';
 import { failToast, returnInfoAlert } from '@/sweetAlert';
 import router from '@/router/router';
 export default {
@@ -111,12 +111,14 @@ export default {
                 router.push('/login');
               }
             }).catch(() => {
+              
               failToast('회원 탈퇴에 실패하였습니다. 다시 시도해주세요.');
             })
           }
         }
       })
-        .catch(() => {
+        .catch((e) => {
+          console.log(e)
           failToast('비밀번호가 일치하지 않습니다. 다시 시도해주세요.');
         })
     }
