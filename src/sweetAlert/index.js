@@ -67,6 +67,16 @@ export const paymentModal = (id) => {
         }
     })
 }
+
+
+export const returnInfoAlert = (text) => {
+    return Swal.fire({
+      icon: 'info',
+      title: '알림',
+      text: text,
+    })
+}
+
 // sweetalert 으로 작성해봄
 export const deleteModal = (reservationId) => {
     Swal.fire({
@@ -92,32 +102,55 @@ export const deleteModal = (reservationId) => {
 }
 
 export const updateRequestModal = (reservationId) => {
-    
+
     Swal.fire({
-        
+
         input: 'textarea',
         inputLabel: '수정하려는 내용을 입력해 주세요!',
         inputPlaceholder: '수정 내용 입력...',
         showCancelButton: true,
-        
+
         inputValidator: (value) => {
             updateReservationRequest(reservationId, value)
-                .then((res) => {
-                    console.log(res)
-                    Swal.fire(
-                        '수정 완료',
-                        '예약건이 수정되었습니다.',
-                        'success'
-                    ).then(() => {
-                        location.reload();
-                    });
-                })
-                .catch((err) => {
-                    console.log(err)
-                    failToast('무언가 잘못되었네요.')
-                })
+              .then((res) => {
+                  console.log(res)
+                  Swal.fire(
+                    '수정 완료',
+                    '예약건이 수정되었습니다.',
+                    'success'
+                  ).then(() => {
+                      location.reload();
+                  });
+              })
+              .catch((err) => {
+                  console.log(err)
+                  failToast('무언가 잘못되었네요.')
+              })
 
         }
     })
+}
+export const checkConfirm = (title,content)=>{
+    return Swal.fire({
+          icon: 'question',
+          text : content,
+          showCancelButton: true,
+          title: title,
+      }
+    )
+}
 
+export const adminCheckModal=()=>{
+    return Swal.fire(
+      {
+        HTML:'<div>' +
+          '<AdminConfirmDetail/>'+
+          '</div>'
+        ,
+        icon:undefined,
+        cancelButtonAriaLabel:true,
+        cancelButtonText:"취소",
+        confirmButtonText:"검수완료"
+      }
+    )
 }
