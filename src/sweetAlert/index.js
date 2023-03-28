@@ -67,6 +67,16 @@ export const paymentModal = (id) => {
         }
     })
 }
+
+
+export const returnInfoAlert = (text) => {
+    return Swal.fire({
+      icon: 'info',
+      title: '알림',
+      text: text,
+    })
+}
+
 // sweetalert 으로 작성해봄
 export const deleteModal = (reservationId) => {
     Swal.fire({
