@@ -38,7 +38,7 @@
             <button
               v-show="r.reservationStatus === '주문접수'"
               class="btn btn-info btn-sm"
-              @click="showUpdateRequestModal(r.reservationId)"
+              @click="showUpdateRequestModal(r.reservationId, r.request)"
             >
               수정
             </button>
@@ -112,8 +112,9 @@ export default {
     const showDeleteModal = (id, reservationId) => {
       deleteModal(id, reservationId)
     }
-    const showUpdateRequestModal = (reservationId) => {
-      updateRequestModal(reservationId)
+    const showUpdateRequestModal = (reservationId, request) => {
+      console.log(reservationId+" "+request)
+      updateRequestModal(reservationId, request)
     }
 
     return {

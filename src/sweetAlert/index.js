@@ -70,8 +70,8 @@ export const paymentModal = (id) => {
 // sweetalert 으로 작성해봄
 export const deleteModal = (reservationId) => {
     Swal.fire({
-        title: '정말 삭제할까요?',
-        test: '삭제한 예약건은 되돌릴 수 없습니다!',
+        title: reservationId+'번 예약 삭제',
+        text: '삭제한 예약건은 되돌릴 수 없습니다!',
         showCancelButton: true,
         confirmButtonColor: '#d33',
         cancelButtonColor: '#3085d6',
@@ -91,13 +91,13 @@ export const deleteModal = (reservationId) => {
     })
 }
 
-export const updateRequestModal = (reservationId) => {
+export const updateRequestModal = (reservationId, request) => {
     
     Swal.fire({
         
         input: 'textarea',
         inputLabel: '수정하려는 내용을 입력해 주세요!',
-        inputPlaceholder: '수정 내용 입력...',
+        inputPlaceholder: request,
         showCancelButton: true,
         
         inputValidator: (value) => {
