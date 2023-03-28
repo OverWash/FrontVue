@@ -20,23 +20,19 @@
         </div>
         <div class="card-body">
           <div class="mt-4">
-            <div v-for="reservation in reservationList.slice(0,1)"
-            :key="reservation.reservationId" 
-              id="lastReservation">
-              <span class="float-right"><b>{{reservation.reservationStatus}}</b></span>
+            <div
+              v-for="reservation in reservationList.slice(0, 1)"
+              :key="reservation.reservationId"
+              id="lastReservation"
+            >
+              <span class="float-right"
+                ><b>{{ reservation.reservationStatus }}</b></span
+              >
               <h5 class="h1 mb-2 font-weight-bold">
                 No.{{ reservation.reservationId }}
               </h5>
-              <h6><b>예약날짜</b> :{{reservation.reservationDate}}</h6>
-              <h6><b>예약내용</b> :{{reservation.request}}</h6>
-              <div class="progress mb-4">
-                <div
-                  class="progress-bar"
-                  id="lastResStatProgressBar"
-                  role="progressbar"
-                  style="width: 16%"
-                ></div>
-              </div>
+              <h6><b>예약날짜</b> :{{ reservation.reservationDate }}</h6>
+              <h6><b>예약내용</b> :{{ reservation.request }}</h6>
             </div>
           </div>
         </div>
@@ -54,13 +50,9 @@ export default {
   },
 
   setup() {
-
-
-    return {
-
-    };
+    return {}
   },
-};
+}
 </script>
 
 <style>

@@ -26,6 +26,7 @@ export const logout = () => {
   })
 }
 
+
 export const getReservationConfirmeds=(page)=>{
 
   return client({
@@ -36,7 +37,6 @@ export const getReservationConfirmeds=(page)=>{
 }
 
 export const getPaymentRequests=(page)=>{
-  console.log(page.value)
   return client({
     url:'/admin/rc/list',
     method:'post',
@@ -138,6 +138,62 @@ export const createReceipt = (id, data) => {
   })
 }
 
+export const getCrewName = () => {
+  return client({
+    url    : '/crew/crew-name',
+    method : 'get'
+  })
+}
+
+export const getInProcessDeliveryCnt = () => {
+  return client({
+    url    : '/crew/in-process-cnt',
+    method : 'get'
+  })
+
+}
+
+export const getCompletedDeliveryCnt = () => {
+  return client({
+    url    : '/crew/completed-cnt',
+    method : 'get'
+  })
+}
+
+export const getPickupList = (page, amount) => {
+  return client({
+    url : '/delivery/pickup-list',
+    method : 'post',
+    data : {
+      'pageNum' : page,
+      'amount' : amount
+    }
+  })
+}
+export const requestReservation = (id, data) =>{
+  return client({
+    url: `reservations/${id}`,
+    method: 'post',
+    data: data,
+  })
+}
+
+export const deleteReservation = (id) =>{
+  return client({
+    url: `reservations/${id}`,
+    method: 'delete',
+  })
+}
+
+export const updateReservationRequest = (id, data) =>{
+  return client({
+    url: `reservations/${id}`,
+    method: 'patch',
+    data: {
+      "request" : data,
+    },
+  })
+}
 export const getReceiptList = (id, p, a) => {
   return client({
     url: `/payment/receipt-list/${id}`,
@@ -147,6 +203,129 @@ export const getReceiptList = (id, p, a) => {
       amount: a
     }
   })
+}
+
+export const getWcList = (page, amount) => {
+  return client({
+    url    : '/delivery/to-be',
+    method : 'post',
+    data   : {
+      'pageNum' : page,
+      'amount' : amount
+    }
+  })
+}
+
+export const collect = (rid) => {
+  return client({
+    url    : `/delivery/collect/${rid}`,
+    method : 'post'
+  })
+}
+
+export const delivery = (rid, wcId) => {
+  return client({
+    url : `/delivery/process/${rid}/${wcId}`,
+    method : 'post'
+  })
+}
+
+export const getDeliveringList = (page, amount) => {
+  return client({
+    url    : `/delivery/in-process`,
+    method : 'post',
+    data   : {
+      'pageNum' : page,
+      'amount' : amount
+    }
+  })
+}
+
+export const completeDelivery = (rid, deliveryid) => {
+  return client({
+    url    : `/delivery/completed/${rid}/${deliveryid}`,
+    method : 'post'
+  })
+}
+
+export const getCompleteDelivery = (page, amount) => {
+  return client({
+    url    : `/delivery/completed`,
+    method : 'post',
+    data   : {
+      'pageNum' : page,
+      'amount' : amount
+    }
+  })
+}
+
+export const getCrewInfo = () => {
+  return client({
+    url    : '/crew/modify',
+    method : 'get'
+  })
+}
+
+export const checkPwCrew = (email, checkPassword) => {
+  return client({
+    url    : '/crew/checkpw',
+    method : 'post',
+    data   : {
+      "email" : email,
+      "password" : checkPassword
+    }
+  })
+}
+
+export const modifyInfoCrew = (info) => {
+  console.log(info)
+	return client({
+		url : 'crew/modify',
+		method : 'patch',
+		data : info
+
+	})
+}
+
+export const removeInfoCrew = () => {
+	return client({
+		url : 'crew/remove',
+		method : 'patch'
+	})
+}
+
+export const getMemberInfo = () => {
+  return client({
+    url    : '/member/modify',
+    method : 'get'
+  })
+}
+
+export const checkPwMember = (email, checkPassword) => {
+  return client({
+    url    : '/member/checkpw',
+    method : 'post',
+    data   : {
+      "email" : email,
+      "password" : checkPassword
+    }
+  })
+}
+
+export const modifyInfoMember = (info) => {
+	return client({
+		url : 'member/modify',
+		method : 'patch',
+		data : info
+
+	})
+}
+
+export const removeInfoMember = () => {
+	return client({
+		url : 'member/remove',
+		method : 'patch'
+	})
 }
 
 export const getReceiptDetail = (id) => {

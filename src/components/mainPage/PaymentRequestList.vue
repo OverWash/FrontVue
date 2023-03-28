@@ -17,7 +17,7 @@
           >
           <span class="middle font-weight-bold">금액 : {{ pr.prPrice }}</span>
           <!-- 결제버튼 -->
-          <span class="float-right" v-on:click="paymentSwitch">
+          <span class="float-right" v-on:click="paymentSwitch(pr.prId)">
             <a class="btn btn-light btn-icon-split" style="line-height: 1">
               <span class="icon text-gray-600">
                 <i class="fas fa-arrow-right"> </i
@@ -43,15 +43,14 @@
       </div>
       <div class="card-body">
         <form
-          id="paymentForm"
-          action="/payment/process"
-          method="POST"
-          onsubmit="requestSubmitBtn()"
+          @submit.prevent="submitForm"
         >
+          <input type="hidden" :value="prId">
           <select
             name="paymentMethod"
             class="custom-select custom-select-sm form-control form-control-sm"
             style="margin-bottom:1rem;"
+            v-model="selectedPaymentMethod"
           >
             <option value="문화상품권">문화상품권</option>
             <option value="모바일결제">모바일결제</option>
@@ -60,15 +59,23 @@
             <option value="PAYCO">PAYCO</option>
             <option value="KakaoPay">KakaoPay</option>
           </select>
+          
           <span class="float-right">
-            <a class="btn btn-primary btn-icon-split" style="line-height: 1; margin-right :0.5rem;">
+            <a 
+              class="btn btn-primary btn-icon-split" 
+              style="line-height: 1; margin-right :0.5rem;"
+              @click="submitForm"
+            >
               <span class="icon text-white-50">
                 <i class="fas fa-check"> </i
               ></span>
               <span class="text font-weight-bold">선택완료</span>
             </a>
-            <a class="btn btn-secondary btn-icon-split" style="line-height: 1"
-            v-on:click="paymentSwitch">
+            <a 
+              class="btn btn-secondary btn-icon-split" 
+              style="line-height: 1"
+              v-on:click="paymentSwitch"
+            >
               <span class="icon text-gray-600">
                 <i class="fas fa-arrow-right"> </i
               ></span>
@@ -83,6 +90,10 @@
 </template>
 
 <script>
+import { createReceipt } from '@/api/index.js'
+//import { onMounted, ref } from 'vue'
+
+
 export default {
   props: {
     prList: {
@@ -92,16 +103,30 @@ export default {
   data() {
     return {
       paySwitch: 0,
+      prId : 0,
+      selectedPaymentMethod:'',
     }
   },
   methods: {
-    paymentSwitch() {
+    paymentSwitch(prId) {
+      this.prId = prId;
+      console.log(prId)
       if (this.paySwitch === 1) {
         this.paySwitch = 0
       } else {
         this.paySwitch = 1
       }
     },
+
+    submitForm(){
+      createReceipt(this.prId, this.selectedPaymentMethod).then((res)=>{
+        console.log(res)
+        alert('결제를 진행합니다.')
+        console.log(res)
+      })
+      location.reload()
+    }
+
   },
 }
 </script>

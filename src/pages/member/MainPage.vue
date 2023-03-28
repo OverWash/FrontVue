@@ -1,6 +1,6 @@
 <template>
   <!-- Content Row -->
-  <div class="main-page">
+  <div class="MainPage">
     <div class="row">
       <!-- 세탁신청 버튼 -->
       <ReservationRequest />
@@ -10,20 +10,21 @@
 
       <ReservationList :reservationList="reservationList" />
 
-      <PaymentRequestList :prList="prList"/>
+      <PaymentRequestList :prList="prList" />
     </div>
   </div>
   <!-- End Content Row -->
 </template>
 
 <script>
-import { ref } from "vue";
-import axios from "axios";
-import ReservationRequest from "@/components/mainPage/ReservationRequest.vue";
-import ReservationLast from "@/components/mainPage/ReservationLast.vue";
-import ReservationList from "@/components/mainPage/ReservationList.vue";
-import PaymentRequestList from "@/components/mainPage/PaymentRequestList.vue";
-//import { useRouter } from 'vue-router';
+import { ref } from 'vue'
+import { getReservationList, getPrList } from '@/api/index.js'
+import store from '@/store/store.js'
+import ReservationRequest from '@/components/mainPage/ReservationRequest.vue'
+import ReservationLast from '@/components/mainPage/ReservationLast.vue'
+import ReservationList from '@/components/mainPage/ReservationList.vue'
+import PaymentRequestList from '@/components/mainPage/PaymentRequestList.vue'
+import { failToast } from '@/sweetAlert'
 
 export default {
   components: {
@@ -34,43 +35,47 @@ export default {
   },
 
   setup() {
-    const reservationList = ref([]);
-    const prList = ref([]);
+    const id = store.state.userid
 
-    const getReservationList = async () => {
-      try {
-        const res = await axios.get(
-          // 임시로 1번 멤버 불러오기
-          "http://127.0.0.1:8100/reservations/1"
-        );
-        reservationList.value = res.data;
-      } catch (err) {
-        console.log(err);
-      }
-    };
+    const reservationList = ref([])
+    const prList = ref([])
 
-    // const getPrList = async () => {
-    //   try {
-    //     const res = await axios.get(
-    //       "/reservations/getPrList/1"
-    //     );
-    //     prList.value = res.data;
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
+    const getList = () => {
+      const response = getReservationList(id, 1, 5)
+      response
+        .then((res) => {
+          console.log(res.data)
+          reservationList.value = res.data.reservations
+        })
+        .catch(() => {
+          failToast('데이터 로딩에 실패하였습니디.')
+        })
+    }
+    getList()
 
-    getReservationList();
-    //getPrList();
+    const getPrListToMain = () => {
+      const response = getPrList(id, 1, 5)
+      response
+        .then((res) => {
+          console.log('prList = ' + res.data)
+          prList.value = res.data.paymentRequests
+        })
+        .catch(() => {
+          failToast('데이터 로딩에 실패하였습니디.')
+        })
+    }
+    getPrListToMain()
+
 
     return {
       reservationList,
       prList,
-      getReservationList,
-      //getPrList
-    };
+      store,
+      getList,
+      getPrListToMain,
+    }
   },
-};
+}
 </script>
 
 <style>
