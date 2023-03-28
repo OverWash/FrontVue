@@ -20,19 +20,28 @@
         </div>
         <div class="card-body">
           <div class="mt-4">
-            <div
-              v-for="reservation in reservationList.slice(0, 1)"
-              :key="reservation.reservationId"
-              id="lastReservation"
-            >
-              <span class="float-right"
-                ><b>{{ reservation.reservationStatus }}</b></span
+            <div v-if="reservationList.length === 0">
+              아직 접수된 예약이 없습니다.
+            </div>
+            <div v-else>
+              <div
+                v-for="reservation in reservationList.slice(0, 1)"
+                :key="reservation.reservationId"
+                id="lastReservation"
               >
-              <h5 class="h1 mb-2 font-weight-bold">
-                No.{{ reservation.reservationId }}
-              </h5>
-              <h6><b>예약날짜</b> :{{ reservation.reservationDate }}</h6>
-              <h6><b>요청사항</b> :{{ reservation.request || ' 등록된 요청사항이 없습니다' }}</h6>
+                <span class="float-right"
+                  ><b>{{ reservation.reservationStatus }}</b></span
+                >
+                <h5 class="h1 mb-2 font-weight-bold">
+                  No.{{ reservation.reservationId }}
+                </h5>
+                <h6><b>예약날짜</b> :{{ reservation.reservationDate }}</h6>
+                <h6>
+                  <b>요청사항</b> :{{
+                    reservation.request || ' 등록된 요청사항이 없습니다'
+                  }}
+                </h6>
+              </div>
             </div>
           </div>
         </div>

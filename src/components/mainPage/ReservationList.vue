@@ -6,25 +6,30 @@
         <h5 class="m-0 font-weight-bold text-primary">예약리스트</h5>
       </div>
       <div class="card-body">
-        <!--v-for-->
-        <div
-          class="reservations"
-          v-for="(reservation) in reservations"
-          :key="reservation.reservationId"
-        >
-          <h4 class="small font-weight-bold">
-            <span>No. {{ reservation.reservationId }}</span> 예약날짜 :
-            {{ formattedReservationDate(reservation.reservationDate) }}
-            <span class="float-right">{{ reservation.reservationStatus }}</span>
-          </h4>
-          <div class="progress progress-sm mb-4">
-            <div
-              :class="progressBarColor(reservation.reservationStatus)"
-              role="progressbar"
-              :style="{
-                width: progressBarWidth(reservation.reservationStatus),
-              }"
-            ></div>
+        <div v-if="reservations.length === 0">아직 접수된 예약이 없습니다.</div>
+        <div v-else>
+          <!--v-for-->
+          <div
+            class="reservations"
+            v-for="reservation in reservations"
+            :key="reservation.reservationId"
+          >
+            <h4 class="small font-weight-bold">
+              <span>No. {{ reservation.reservationId }}</span> 예약날짜 :
+              {{ formattedReservationDate(reservation.reservationDate) }}
+              <span class="float-right">{{
+                reservation.reservationStatus
+              }}</span>
+            </h4>
+            <div class="progress progress-sm mb-4">
+              <div
+                :class="progressBarColor(reservation.reservationStatus)"
+                role="progressbar"
+                :style="{
+                  width: progressBarWidth(reservation.reservationStatus),
+                }"
+              ></div>
+            </div>
           </div>
         </div>
         <!--v-for-->
