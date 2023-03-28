@@ -1,6 +1,6 @@
 <template>
   <div class="max-width">
-    <CheckTable :id="confirmId" v-if="showCheck" />
+    <CheckTable :id="confirmId" :totalPrice="totalPrice" v-if="showCheck" />
 
     <button class="btn btn-secondary btn-sm" @click="goback">돌아가기</button>
     <button class="btn btn-primary btn-sm" @click="showModal">결제하기</button>
@@ -25,6 +25,7 @@ export default {
     const confirmId = ref(-1)
     const pr = ref({})
     const showCheck = ref(false)
+    const totalPrice = ref(0)
 
     onMounted(() => {
       getPrDetail(prId)
@@ -34,6 +35,7 @@ export default {
 
           confirmId.value = pr.value.confirm.confirmId
           showCheck.value = true
+          totalPrice.value = pr.value.prPrice
         })
         .catch(() => {
           failToast('결제요청서 로딩에 실패하였습니다.')
@@ -56,6 +58,7 @@ export default {
       showModal,
       confirmId,
       showCheck,
+      totalPrice,
     }
   },
 }

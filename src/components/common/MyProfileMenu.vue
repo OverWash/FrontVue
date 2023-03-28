@@ -1,6 +1,6 @@
 <template>
-  <div class="dropdown-menu shadow d-block" aria-labelledby="userDropdown">
-    <button class="dropdown-item" @click="modifyBtn">
+  <div class="dropdown-menu shadow" aria-labelledby="userDropdown">
+    <button class="dropdown-item" @click="modifyBtn" v-show='store.state.role !== "ROLE_ADMIN"'>
       <i class="fas fa-edit fa-sm fa-fw mr-2 text-gray-400"></i>
       정보수정
     </button>

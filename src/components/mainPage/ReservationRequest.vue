@@ -9,10 +9,10 @@
       <div class="card-body" id="reservationPicture">
         <img
           class="img-fluid px-3 px-sm-4"
-          src="@/assets/logo.png"
-          style="max-width: 60%"
+          src="@/assets/resources/img/booking.svg"
+          style="max-width: 70%"
         />
-        <h4 class="m-0 font-weight-bold text-dark">+예약하기</h4>
+        <h4 class="m-0 font-weight-bold text-dark float-right">+예약하기</h4>
       </div>
     </div>
     <!-- Reservation request Modal-->
@@ -36,7 +36,7 @@
                 @input="checkDate"
               />
               <hr />
-              <h6><b>요청사항을 입력해 주세요</b></h6>
+              <h6><b>요청사항을 입력해 주세요(선택사항)</b></h6>
               <input
                 type="text"
                 id="request"
@@ -80,6 +80,7 @@
 <script>
 import { requestReservation } from '@/api/index.js'
 import { ref } from 'vue'
+import Swal from "sweetalert2";
 import store from '@/store/store'
 
 export default {
@@ -139,16 +140,23 @@ export default {
     const submitForm = () => {
       // 날짜를 선택하지 않은 경우 알림 메시지 출력 후 제출하지 않음
       if (data.value.collectDate === '') {
-        alert('희망 수거 날짜를 선택해주세요.')
+        Swal.fire({
+        icon:'info',
+        title:'날짜를 입력해 주세요!',
+        })
         return
       }
         console.log(data.value)
         requestReservation(id, data.value)
           .then((res) => {
             console.log(res)
-            alert('예약을 진행합니다.')
-            console.log(data.value);
-            location.reload();
+            Swal.fire(
+                    '접수 완료',
+                    '예약건이 접수되었습니다.',
+                    'success'
+                ).then(() => {
+                    location.reload();
+                  });
           })
           .catch((err) => {
             console.log(err)

@@ -10,7 +10,9 @@ body {
   background: var(--bs-body-bg);
   color: var(--bs-dark-text);
 }
-
+.table td{
+  border-top: 0;
+}
 #app {
   font-size: 1vw;
   min-width: 800px;

@@ -80,8 +80,8 @@ export const returnInfoAlert = (text,title) => {
 // sweetalert 으로 작성해봄
 export const deleteModal = (reservationId) => {
     Swal.fire({
-        title: '정말 삭제할까요?',
-        test: '삭제한 예약건은 되돌릴 수 없습니다!',
+        title: reservationId+'번 예약 삭제',
+        text: '삭제한 예약건은 되돌릴 수 없습니다!',
         showCancelButton: true,
         confirmButtonColor: '#d33',
         cancelButtonColor: '#3085d6',
@@ -101,33 +101,57 @@ export const deleteModal = (reservationId) => {
     })
 }
 
-export const updateRequestModal = (reservationId) => {
+export const updateRequestModal = (reservationId, request) => {
     
+
     Swal.fire({
-        
+
         input: 'textarea',
         inputLabel: '수정하려는 내용을 입력해 주세요!',
-        inputPlaceholder: '수정 내용 입력...',
+        inputPlaceholder: request || '등록된 요청사항이 없습니다.',
         showCancelButton: true,
-        
+
         inputValidator: (value) => {
             updateReservationRequest(reservationId, value)
-                .then((res) => {
-                    console.log(res)
-                    Swal.fire(
-                        '수정 완료',
-                        '예약건이 수정되었습니다.',
-                        'success'
-                    ).then(() => {
-                        location.reload();
-                    });
-                })
-                .catch((err) => {
-                    console.log(err)
-                    failToast('무언가 잘못되었네요.')
-                })
+              .then((res) => {
+                  console.log(res)
+                  Swal.fire(
+                    '수정 완료',
+                    '예약건이 수정되었습니다.',
+                    'success'
+                  ).then(() => {
+                      location.reload();
+                  });
+              })
+              .catch((err) => {
+                  console.log(err)
+                  failToast('무언가 잘못되었네요.')
+              })
 
         }
     })
+}
+export const checkConfirm = (title,content)=>{
+    return Swal.fire({
+          icon: 'question',
+          text : content,
+          showCancelButton: true,
+          title: title,
+      }
+    )
+}
 
+export const adminCheckModal=()=>{
+    return Swal.fire(
+      {
+        HTML:'<div>' +
+          '<AdminConfirmDetail/>'+
+          '</div>'
+        ,
+        icon:undefined,
+        cancelButtonAriaLabel:true,
+        cancelButtonText:"취소",
+        confirmButtonText:"검수완료"
+      }
+    )
 }

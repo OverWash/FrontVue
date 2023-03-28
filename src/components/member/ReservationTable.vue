@@ -38,7 +38,7 @@
             <button
               v-show="r.reservationStatus === '주문접수'"
               class="btn btn-info btn-sm"
-              @click="showUpdateRequestModal(r.reservationId)"
+              @click="showUpdateRequestModal(r.reservationId, r.request)"
             >
               수정
             </button>
@@ -96,7 +96,6 @@ export default {
       const response = getReservationList(id, page, 10)
       response
         .then((res) => {
-          // console.log(res.data)
           list.value = res.data.reservations
           pagination.value = res.data.reservationPaging
         })
@@ -112,8 +111,8 @@ export default {
     const showDeleteModal = (id, reservationId) => {
       deleteModal(id, reservationId)
     }
-    const showUpdateRequestModal = (reservationId) => {
-      updateRequestModal(reservationId)
+    const showUpdateRequestModal = (reservationId, request) => {
+      updateRequestModal(reservationId, request)
     }
 
     return {

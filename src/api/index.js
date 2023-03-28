@@ -24,7 +24,7 @@ export const logout = () => {
     url: '/logout',
     method: 'post'
   })
-} 
+}
 
 
 export const getReservationConfirmeds=(page)=>{
@@ -283,7 +283,7 @@ export const modifyInfoCrew = (info) => {
 		url : 'crew/modify',
 		method : 'patch',
 		data : info
-			
+
 	})
 }
 
@@ -317,7 +317,7 @@ export const modifyInfoMember = (info) => {
 		url : 'member/modify',
 		method : 'patch',
 		data : info
-			
+
 	})
 }
 
@@ -332,5 +332,29 @@ export const getReceiptDetail = (id) => {
   return client({
     url: `/payment/receipt/${id}`,
     method: 'get',
+  })
+}
+
+export const checkWashingComplete=(confirmId)=>{
+  return client({
+    url: `/admin/wc/${confirmId}/complete`,
+    method:'post'
+
+  })
+}
+
+export const checkConfirmDetail=(confirmId)=>{
+  return client({
+    url:`/admin/rc/${confirmId}/detail`,
+    method:'get',
+
+  })
+}
+
+export const checkConfrimInsert=(confirmId,laundryData)=>{
+  return client({
+    url:`/admin/rc/${confirmId}/complete`,
+    method:'post',
+    data:laundryData,
   })
 }
