@@ -97,7 +97,7 @@ export const updateRequestModal = (reservationId, request) => {
         
         input: 'textarea',
         inputLabel: '수정하려는 내용을 입력해 주세요!',
-        inputPlaceholder: request,
+        inputPlaceholder: request || '등록된 요청사항이 없습니다.',
         showCancelButton: true,
         
         inputValidator: (value) => {

@@ -96,7 +96,6 @@ export default {
       const response = getReservationList(id, page, 10)
       response
         .then((res) => {
-          // console.log(res.data)
           list.value = res.data.reservations
           pagination.value = res.data.reservationPaging
         })
@@ -113,7 +112,6 @@ export default {
       deleteModal(id, reservationId)
     }
     const showUpdateRequestModal = (reservationId, request) => {
-      console.log(reservationId+" "+request)
       updateRequestModal(reservationId, request)
     }
 
