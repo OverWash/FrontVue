@@ -1,6 +1,13 @@
 import Swal from "sweetalert2";
 import { createReceipt, deleteReservation, updateReservationRequest } from "@/api";
 
+export const errorAlert = (text) => {
+    Swal.fire({
+        icon: "error",
+        title: 'ERROR',
+        text: text
+    })
+}
 
 export const infoAlert = (text) => {
     Swal.fire({
